@@ -1,0 +1,26 @@
+// Finance Service form styling for customer invoices
+.o_fs_section_label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $text-muted;
+    margin-bottom: 0.4rem;
+}
+
+.o_fs_invoice_type .o_field_selection_badge {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    .badge,
+    span.o_selection_badge {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.85rem;
+        border-radius: 0.5rem;
+    }
+}
+
+.o_fs_zip {
+    max-width: 8rem;
+}

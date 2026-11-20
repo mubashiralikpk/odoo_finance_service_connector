@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Customer invoice form laid out like the Finance Service admin
+        "New / Edit invoice" form. Only applies to customer invoices and
+        credit notes; Odoo still computes taxes, totals and numbering.
+    -->
+    <record id="view_move_form_finance_form" model="ir.ui.view">
+        <field name="name">account.move.form.finance.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+
+            <!-- ── Invoice type picker (top of the sheet) ───────────────── -->
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <div class="o_fs_invoice_type mb-3"
+                     invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <div class="o_fs_section_label">Invoice type</div>
+                    <field name="fs_invoice_type" widget="selection_badge" nolabel="1"
+                           readonly="state != 'draft'"/>
+                </div>
+            </xpath>
+
+            <!-- ── Left column: member + address ────────────────────────── -->
+            <xpath expr="//group[@id='header_left_group']/label[@for='partner_id'][1]" position="attributes">
+                <attribute name="string">Member</attribute>
+            </xpath>
+            <!-- the address is shown as editable fields below, so don't repeat it under the name -->
+            <xpath expr="//group[@id='header_left_group']//field[@name='partner_id']" position="attributes">
+                <attribute name="context">{
+                    'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,
+                    'show_address': context.get('default_move_type', 'entry') not in ('out_invoice', 'out_refund'),
+                    'default_is_company': True, 'show_vat': True}</attribute>
+            </xpath>
+            <xpath expr="//group[@id='header_left_group']/field[@name='partner_shipping_id']" position="before">
+                <field name="fs_rcpt_street2" placeholder="Address supplement (optional)"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+                <field name="fs_rcpt_street" placeholder="Street and house number"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+                <label for="fs_rcpt_zip" string="Postcode / City"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"/>
+                <div class="d-flex gap-2" invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <field name="fs_rcpt_zip" placeholder="Postcode" class="o_fs_zip"
+                           readonly="state != 'draft'"/>
+                    <field name="fs_rcpt_city" placeholder="City"
+                           readonly="state != 'draft'"/>
+                </div>
+                <field name="fs_rcpt_country_id" placeholder="Country" options="{'no_create': True}"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+                <field name="fs_rcpt_email" widget="email" placeholder="Email (optional)"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+            </xpath>
+
+            <!-- ── Right column: member no., service date, buyer ref ────── -->
+            <xpath expr="//group[@id='header_right_group']/label[@for='invoice_date'][1]" position="before">
+                <field name="fs_rcpt_member_number" placeholder="Member number (optional)"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/field[@name='delivery_date']" position="attributes">
+                <attribute name="string">Delivery / service date</attribute>
+                <attribute name="invisible">(move_type not in ('out_invoice', 'out_refund') and not show_delivery_date) or (move_type in ('out_invoice', 'out_refund') and fs_service_type == 'none')</attribute>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/div[hasclass('o_td_label')]" position="before">
+                <field name="fs_service_type"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+                <xpath expr="//group[@id='header_right_group']/field[@name='delivery_date']" position="move"/>
+            </xpath>
+            <xpath expr="//group[@id='header_right_group']/div[@name='due_date']" position="after">
+                <field name="fs_buyer_reference" placeholder="Buyer reference / Leitweg-ID (optional)"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"/>
+            </xpath>
+
+            <!-- ── Document title + introductory text ───────────────────── -->
+            <xpath expr="//sheet/notebook" position="before">
+                <group class="o_fs_document" invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <field name="fs_document_title" readonly="state != 'draft'"/>
+                    <field name="fs_intro_text" placeholder="Introductory text (optional)"
+                           readonly="state != 'draft'"/>
+                </group>
+            </xpath>
+
+            <!-- ── Article lines: Finance column names ──────────────────── -->
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="string">Article</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="attributes">
+                <attribute name="string">Description</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="attributes">
+                <attribute name="string">Qty</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_uom_id'][1]" position="attributes">
+                <attribute name="string">Unit</attribute>
+                <attribute name="groups"></attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="string">Net price</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='tax_ids']" position="attributes">
+                <attribute name="string">VAT</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="attributes">
+                <attribute name="string">Net total</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_total']" position="attributes">
+                <attribute name="string">Total</attribute>
+                <attribute name="optional">show</attribute>
+            </xpath>
+
+            <!-- ── Closing notes, payment terms, postscript ─────────────── -->
+            <xpath expr="//page[@id='invoice_tab']//field[@name='narration']" position="attributes">
+                <attribute name="placeholder">Closing notes / footer text (optional)</attribute>
+            </xpath>
+            <xpath expr="//page[@id='invoice_tab']/group[hasclass('oe_invoice_lines_tab')]" position="after">
+                <group class="o_fs_closing" invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <field name="fs_payment_terms_text"
+                           placeholder="Payment terms (optional), e.g. Payable within 14 days without deduction"
+                           readonly="state != 'draft'"/>
+                    <field name="fs_postscript" placeholder="Postscript (optional)"
+                           readonly="state != 'draft'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
