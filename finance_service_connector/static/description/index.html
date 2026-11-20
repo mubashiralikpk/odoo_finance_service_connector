@@ -1,0 +1,51 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan" style="color:#15803d;">Finance Service Connector</h2>
+            <h3 class="oe_slogan">Sync Odoo customer invoices to an external Finance-as-a-Service API</h3>
+        </div>
+        <div class="oe_span12">
+            <div class="oe_demo oe_picture oe_screenshot">
+                <img src="screenshot_form.png" alt="Finance invoice form in Odoo"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Features</h2>
+        <div class="oe_span12">
+            <ul>
+                <li><b>Automatic sync</b> &mdash; customer invoices and credit notes are pushed to the Finance Service when you confirm them.</li>
+                <li><b>Manual sync</b> &mdash; a "Sync to Finance Service" button on every customer invoice; re-syncing updates the same remote invoice.</li>
+                <li><b>Payment write-back</b> &mdash; when an invoice is paid in Odoo it is marked paid in the Finance Service.</li>
+                <li><b>Finance invoice form</b> &mdash; invoice type (Manual, Membership, Subscription, Events, Room booking, Driver credits, POS legal, Correction, Other), member address snapshot, member number, delivery / service type and date, buyer reference / Leitweg-ID, document title, introductory text, payment terms, closing notes and postscript.</li>
+                <li><b>Sync status on every invoice</b> &mdash; a "Finance Service" tab shows the remote invoice ID, number, last sync time and any error; a sync column in the invoice list.</li>
+                <li><b>Per-company settings</b> with a <b>Test Connection</b> button that checks the API URL, API key and tenant ID.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Configuration</h2>
+        <div class="oe_span12">
+            <ol>
+                <li>Install the module (it depends on <i>Invoicing</i>).</li>
+                <li>Go to <b>Settings &rarr; Invoicing &rarr; Finance Service</b>.</li>
+                <li>Enter the <b>API URL</b> of your Finance Service (for Odoo in Docker talking to a service on the host: <code>http://host.docker.internal:3000</code>), the <b>Tenant ID</b> and the tenant's <b>API Key</b>.</li>
+                <li>Click <b>Test Connection</b>, then <b>Save</b>.</li>
+                <li>Create a customer invoice and click <b>Confirm</b> &mdash; the <i>Finance Service</i> tab shows the sync result.</li>
+            </ol>
+            <p>The module calls these endpoints of the Finance Service (all with the <code>x-api-key</code> header):</p>
+            <ul>
+                <li><code>GET /api/v1/tenants/me</code> &mdash; test connection</li>
+                <li><code>POST /api/v1/tenants/{tenantId}/invoices</code> &mdash; create invoice</li>
+                <li><code>PATCH /api/v1/tenants/{tenantId}/invoices/{id}</code> &mdash; update invoice</li>
+                <li><code>POST /api/v1/tenants/{tenantId}/invoices/{id}/mark-paid</code> &mdash; payment write-back</li>
+            </ul>
+        </div>
+    </div>
+</section>

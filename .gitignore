@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Local screenshots / scratch files in the repo root
+/*.png
+/*.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
