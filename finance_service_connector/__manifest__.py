@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Finance Service Connector',
-    'version': '17.0.2.0.0',
+    'version': '17.0.2.0.1',
     'summary': 'GoBD-compliant German invoicing: EN 16931 e-invoices (ZUGFeRD / Factur-X, XRechnung), '
                'PDF/A-3, VAT checks, archive with SHA-256, retention and legal hold',
     'author': 'Pitstop CRM',
@@ -35,5 +35,7 @@
     'installable': True,
     'application': False,
     'auto_install': False,
-    'license': 'LGPL-3',
+    'license': 'OPL-1',
+    'price': 9.0,
+    'currency': 'EUR',
 }

@@ -74,4 +74,4 @@ See [docs/GOBD.md](docs/GOBD.md).
 
 ## License
 
-LGPL-3.0 — see [LICENSE](LICENSE).
+Odoo Proprietary License v1.0 (OPL-1) — see [LICENSE](LICENSE). Sold on the Odoo Apps Store for 9 EUR (one-time).
