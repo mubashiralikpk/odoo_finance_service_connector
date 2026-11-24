@@ -1,17 +1,29 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Finance Service Connector',
-    'version': '17.0.1.1.0',
-    'summary': 'Sync Odoo invoices to an external Finance-as-a-Service API',
+    'version': '17.0.2.0.0',
+    'summary': 'GoBD-compliant German invoicing: EN 16931 e-invoices (ZUGFeRD / Factur-X, XRechnung), '
+               'PDF/A-3, VAT checks, archive with SHA-256, retention and legal hold',
     'author': 'Pitstop CRM',
     'website': 'https://github.com/mubashiralikpk/odoo_finance_service_connector',
-    'category': 'Accounting/Finance',
-    'depends': ['account'],
+    'category': 'Accounting/Localizations',
+    'depends': [
+        'account',
+        'account_edi_ubl_cii',
+        'account_edi_ubl_cii_tax_extension',
+        'account_audit_trail',
+        'l10n_din5008',
+    ],
     'data': [
         'security/ir.model.access.csv',
+        'security/fsc_security.xml',
+        'data/ir_cron.xml',
+        'data/pdfa_metadata.xml',
         'views/res_config_settings_views.xml',
         'views/account_move_views.xml',
         'views/account_move_finance_form.xml',
+        'views/fsc_gobd_views.xml',
+        'report/report_invoice.xml',
     ],
     'assets': {
         'web.assets_backend': [
@@ -19,6 +31,7 @@
         ],
     },
     'images': ['static/description/banner.png'],
+    'post_init_hook': 'post_init_hook',
     'installable': True,
     'application': False,
     'auto_install': False,

@@ -13,6 +13,20 @@
         <field name="arch" type="xml">
 
             <!-- ── Invoice type picker (top of the sheet) ───────────────── -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning mb-0 o_fsc_compliance" role="alert"
+                     invisible="not fsc_compliance_issues or state != 'draft' or not fsc_is_gobd_document">
+                    <strong>Not ready to issue (GoBD / §14 UStG / EN 16931)</strong>
+                    <field name="fsc_compliance_issues" nolabel="1" class="d-block mt-1" style="white-space: pre-line;"/>
+                </div>
+                <div class="alert alert-info mb-0" role="status"
+                     invisible="not fsc_issued_at or not fsc_is_gobd_document">
+                    Issued and locked (GoBD). Corrections only with a credit note.
+                    Archive: <field name="fsc_archive_state" nolabel="1" class="d-inline fw-bold"/> ·
+                    retain until <field name="fsc_retention_until" nolabel="1" class="d-inline fw-bold"/>
+                    <span invisible="not fsc_legal_hold" class="badge text-bg-danger ms-2">Legal hold</span>
+                </div>
+            </xpath>
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <div class="o_fs_invoice_type mb-3"
                      invisible="move_type not in ('out_invoice', 'out_refund')">
@@ -64,17 +78,25 @@
             </xpath>
             <xpath expr="//group[@id='header_right_group']/field[@name='delivery_date']" position="attributes">
                 <attribute name="string">Delivery / service date</attribute>
-                <attribute name="invisible">(move_type not in ('out_invoice', 'out_refund') and not show_delivery_date) or (move_type in ('out_invoice', 'out_refund') and fs_service_type == 'none')</attribute>
+                <attribute name="invisible">(move_type not in ('out_invoice', 'out_refund') and not show_delivery_date) or (move_type in ('out_invoice', 'out_refund') and fs_service_type == 'none' and state == 'draft')</attribute>
             </xpath>
             <xpath expr="//group[@id='header_right_group']/div[hasclass('o_td_label')]" position="before">
                 <field name="fs_service_type"
                        invisible="move_type not in ('out_invoice', 'out_refund')"
                        readonly="state != 'draft'"/>
                 <xpath expr="//group[@id='header_right_group']/field[@name='delivery_date']" position="move"/>
+                <field name="fs_service_date_to"
+                       invisible="fs_service_type not in ('delivery_period', 'performance_period')"
+                       required="state == 'draft' and fs_service_type in ('delivery_period', 'performance_period')"
+                       readonly="state != 'draft'"/>
             </xpath>
             <xpath expr="//group[@id='header_right_group']/div[@name='due_date']" position="after">
                 <field name="fs_buyer_reference" placeholder="Buyer reference / Leitweg-ID (optional)"
-                       invisible="move_type not in ('out_invoice', 'out_refund')"/>
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
+                <field name="fsc_export_evidence_ref" placeholder="Only for exports (VAT category G)"
+                       invisible="move_type not in ('out_invoice', 'out_refund')"
+                       readonly="state != 'draft'"/>
             </xpath>
 
             <!-- ── Document title + introductory text ───────────────────── -->

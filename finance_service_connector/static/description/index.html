@@ -2,11 +2,11 @@
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
             <h2 class="oe_slogan" style="color:#15803d;">Finance Service Connector</h2>
-            <h3 class="oe_slogan">Sync Odoo customer invoices to an external Finance-as-a-Service API</h3>
+            <h3 class="oe_slogan">GoBD-compliant German invoicing: EN 16931 e-invoices, PDF/A-3, VAT checks, archive and retention</h3>
         </div>
         <div class="oe_span12">
             <div class="oe_demo oe_picture oe_screenshot">
-                <img src="screenshot_form.png" alt="Finance invoice form in Odoo"/>
+                <img src="screenshot_form.png" alt="Invoice that is not ready to issue yet"/>
             </div>
         </div>
     </div>
@@ -14,38 +14,49 @@
 
 <section class="oe_container oe_dark">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Features</h2>
+        <h2 class="oe_slogan">Six rules, built in</h2>
         <div class="oe_span12">
-            <ul>
-                <li><b>Automatic sync</b> &mdash; customer invoices and credit notes are pushed to the Finance Service when you confirm them.</li>
-                <li><b>Manual sync</b> &mdash; a "Sync to Finance Service" button on every customer invoice; re-syncing updates the same remote invoice.</li>
-                <li><b>Payment write-back</b> &mdash; when an invoice is paid in Odoo it is marked paid in the Finance Service.</li>
-                <li><b>Finance invoice form</b> &mdash; invoice type (Manual, Membership, Subscription, Events, Room booking, Driver credits, POS legal, Correction, Other), member address snapshot, member number, delivery / service type and date, buyer reference / Leitweg-ID, document title, introductory text, payment terms, closing notes and postscript.</li>
-                <li><b>Sync status on every invoice</b> &mdash; a "Finance Service" tab shows the remote invoice ID, number, last sync time and any error; a sync column in the invoice list.</li>
-                <li><b>Per-company settings</b> with a <b>Test Connection</b> button that checks the API URL, API key and tenant ID.</li>
-            </ul>
+            <ol>
+                <li><b>Invoice creation</b> &mdash; an invoice is confirmed only when the content required by §14 Abs. 4 UStG and EN 16931 is present: seller address and VAT ID / tax number, member address (not needed up to 250 &euro; gross, §33 UStDV), service date or period, one VAT tax per line. Missing items are listed on the draft.</li>
+                <li><b>Invoice saving</b> &mdash; at confirmation the PDF/A-3 and the XML are archived with SHA-256 hashes. Issued invoices cannot be edited, reset, cancelled or deleted; corrections are credit notes that reference the original. Insert-only audit log with a SHA-256 chain; Odoo's hash lock and audit trail switched on.</li>
+                <li><b>Retention</b> &mdash; 8 years from the end of the issue year (§14b UStG, §147 AO), extendable per invoice, legal hold with reason, daily integrity check.</li>
+                <li><b>VAT</b> &mdash; explicit EN 16931 VAT category for every 0&nbsp;% line, legal reason for exempt / reverse charge / intra-EU / export, customer VAT ID for AE and K, destination checks. German SKR03 / SKR04 taxes are mapped automatically where unambiguous.</li>
+                <li><b>EN 16931</b> &mdash; Factur-X / ZUGFeRD XML with the EN 16931 profile, buyer reference / Leitweg-ID, tax number, service period, notes and the preceding invoice on credit notes. Tested against the official CEN EN 16931 schematron with 0 errors. XRechnung for public customers via Odoo.</li>
+                <li><b>PDF</b> &mdash; every customer invoice is a PDF/A-3 with the XML embedded, showing service date or period, member number, VAT ID / tax number, payment terms and VAT statements such as &ldquo;Steuerschuldnerschaft des Leistungsempf&auml;ngers&rdquo;. DIN 5008 layout supported.</li>
+            </ol>
+            <p><b>GoBD export (Z3)</b>: one ZIP per period for the tax auditor with CSV tables, GDPdU <code>index.xml</code>, the original PDF/XML files, the audit log and SHA256SUMS.</p>
         </div>
     </div>
 </section>
 
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">Configuration</h2>
+        <h2 class="oe_slogan">Archive, retention and audit log on every invoice</h2>
+        <div class="oe_span12">
+            <div class="oe_demo oe_picture oe_screenshot">
+                <img src="screenshot_gobd.png" alt="GoBD tab with archived documents and audit log"/>
+            </div>
+        </div>
+        <h2 class="oe_slogan">The PDF</h2>
+        <div class="oe_span12">
+            <div class="oe_demo oe_picture oe_screenshot">
+                <img src="screenshot_pdf.png" alt="Invoice PDF in DIN 5008 layout"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Setup</h2>
         <div class="oe_span12">
             <ol>
-                <li>Install the module (it depends on <i>Invoicing</i>).</li>
-                <li>Go to <b>Settings &rarr; Invoicing &rarr; Finance Service</b>.</li>
-                <li>Enter the <b>API URL</b> of your Finance Service (for Odoo in Docker talking to a service on the host: <code>http://host.docker.internal:3000</code>), the <b>Tenant ID</b> and the tenant's <b>API Key</b>.</li>
-                <li>Click <b>Test Connection</b>, then <b>Save</b>.</li>
-                <li>Create a customer invoice and click <b>Confirm</b> &mdash; the <i>Finance Service</i> tab shows the sync result.</li>
+                <li>Install the module (it installs Invoicing, UBL/CII e-invoicing, the tax extension, the audit trail and DIN 5008).</li>
+                <li>Settings &rarr; Invoicing &rarr; <b>GoBD (Germany)</b>: tax number (Steuernummer) if you have no VAT ID.</li>
+                <li>Complete your company address and trust your bank account (the e-invoice needs payment instructions).</li>
+                <li>Set the Tax Category Code on any 0&nbsp;% tax that was not mapped automatically.</li>
             </ol>
-            <p>The module calls these endpoints of the Finance Service (all with the <code>x-api-key</code> header):</p>
-            <ul>
-                <li><code>GET /api/v1/tenants/me</code> &mdash; test connection</li>
-                <li><code>POST /api/v1/tenants/{tenantId}/invoices</code> &mdash; create invoice</li>
-                <li><code>PATCH /api/v1/tenants/{tenantId}/invoices/{id}</code> &mdash; update invoice</li>
-                <li><code>POST /api/v1/tenants/{tenantId}/invoices/{id}/mark-paid</code> &mdash; payment write-back</li>
-            </ul>
+            <p>Application controls, not a GoBD certification: a Verfahrensdokumentation, backups and storage remain the company's responsibility.</p>
         </div>
     </div>
 </section>

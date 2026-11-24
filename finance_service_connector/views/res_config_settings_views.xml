@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <!-- Odoo 17: Settings → Invoicing → "Finance Service" block -->
-        <record id="res_config_settings_view_form_finance_service" model="ir.ui.view">
-            <field name="name">res.config.settings.view.form.inherit.finance.service</field>
-            <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//app[@name='account']" position="inside">
-                    <block title="Finance Service" name="finance_service_setting_container">
-                        <setting string="API URL" help="Base URL of the Finance Service, e.g. http://host.docker.internal:3000">
-                            <field name="fs_api_url" placeholder="http://host.docker.internal:3000"/>
-                        </setting>
-                        <setting string="Tenant ID" help="UUID of this company's Finance Service tenant">
-                            <field name="fs_tenant_id" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"/>
-                        </setting>
-                        <setting string="API Key" help="API key from the Finance Service tenant">
-                            <field name="fs_api_key" password="True" placeholder="fs_xxxxxxxxxxxx"/>
-                        </setting>
-                        <setting help="Automatically push invoices to the Finance Service when they are confirmed">
-                            <field name="fs_auto_sync"/>
-                        </setting>
-                        <setting string="Connection" help="Checks the API URL, API key and Tenant ID against the Finance Service backend">
-                            <button name="action_fs_test_connection" type="object"
-                                    string="Test Connection" icon="fa-plug" class="btn-secondary"/>
-                        </setting>
-                    </block>
-                </xpath>
-            </field>
-        </record>
-    </data>
+    <!-- Odoo 17: Settings → Invoicing → "GoBD (Germany)" block -->
+    <record id="res_config_settings_view_form_finance_service" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.fsc.gobd</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']" position="inside">
+                <block title="GoBD (Germany)" name="fsc_gobd_setting_container">
+                    <setting string="Tax number (Steuernummer)"
+                             help="§14 Abs. 4 Nr. 2 UStG: your VAT ID or tax number must be on every invoice. Also written to the e-invoice (BT-32).">
+                        <field name="fsc_tax_number" placeholder="e.g. 143/123/45678"/>
+                    </setting>
+                    <setting string="Invoice retention"
+                             help="Years after the end of the issue year (legal minimum 8, §14b UStG / §147 AO).">
+                        <field name="fsc_retention_years"/>
+                    </setting>
+                    <setting string="Lock issued invoices with hash"
+                             help="Odoo's inalterability hash on customer invoice journals + audit trail. Cannot be switched off once entries are hashed.">
+                        <field name="fsc_hash_lock_active" readonly="1"/>
+                        <div class="mt8" invisible="fsc_hash_lock_active">
+                            <button name="action_fsc_enable_hash_lock" type="object" string="Enable"
+                                    class="btn-link" icon="fa-lock"/>
+                        </div>
+                    </setting>
+                    <setting string="GoBD export (Z3)" help="ZIP for the tax auditor: CSV + GDPdU index.xml + original PDF/XML + audit log.">
+                        <button name="action_fsc_open_gobd_export" type="object" string="Export"
+                                class="btn-link" icon="fa-download"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
 </odoo>

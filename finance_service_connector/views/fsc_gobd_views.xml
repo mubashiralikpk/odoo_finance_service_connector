@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Audit log -->
+    <record id="view_fsc_audit_event_tree" model="ir.ui.view">
+        <field name="name">fsc.audit.event.tree</field>
+        <field name="model">fsc.audit.event</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0"
+                  decoration-danger="event_type in ('integrity_failed', 'archive_failed')">
+                <field name="event_at"/>
+                <field name="move_id"/>
+                <field name="event_type"/>
+                <field name="user_id"/>
+                <field name="reason"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="hash" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_fsc_audit_event_form" model="ir.ui.view">
+        <field name="name">fsc.audit.event.form</field>
+        <field name="model">fsc.audit.event</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="event_type"/>
+                            <field name="move_id"/>
+                            <field name="event_at"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="prev_hash"/>
+                            <field name="hash"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason"/>
+                        <field name="old_value"/>
+                        <field name="new_value"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_fsc_audit_event_search" model="ir.ui.view">
+        <field name="name">fsc.audit.event.search</field>
+        <field name="model">fsc.audit.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="move_id"/>
+                <field name="event_type"/>
+                <field name="user_id"/>
+                <filter name="problems" string="Problems"
+                        domain="[('event_type', 'in', ('integrity_failed', 'archive_failed', 'reset_blocked', 'hard_delete_blocked'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Event" context="{'group_by': 'event_type'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'event_at:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_fsc_audit_event" model="ir.actions.act_window">
+        <field name="name">GoBD audit log</field>
+        <field name="res_model">fsc.audit.event</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Archived documents -->
+    <record id="view_fsc_invoice_archive_tree" model="ir.ui.view">
+        <field name="name">fsc.invoice.archive.tree</field>
+        <field name="model">fsc.invoice.archive</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0" decoration-danger="not last_check_ok">
+                <field name="move_id"/>
+                <field name="filename"/>
+                <field name="standard"/>
+                <field name="file_size" optional="hide"/>
+                <field name="sha256" optional="show"/>
+                <field name="archived_at"/>
+                <field name="retention_until"/>
+                <field name="last_check_at" optional="show"/>
+                <field name="last_check_ok"/>
+                <button name="action_download" type="object" icon="fa-download" title="Download"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_fsc_invoice_archive_search" model="ir.ui.view">
+        <field name="name">fsc.invoice.archive.search</field>
+        <field name="model">fsc.invoice.archive</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="move_id"/>
+                <field name="filename"/>
+                <field name="sha256"/>
+                <filter name="failed" string="Integrity failed" domain="[('last_check_ok', '=', False)]"/>
+                <filter name="pdf" string="PDF" domain="[('kind', '=', 'pdf')]"/>
+                <filter name="xml" string="XML" domain="[('kind', '=', 'xml')]"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_fsc_invoice_archive" model="ir.actions.act_window">
+        <field name="name">GoBD document archive</field>
+        <field name="res_model">fsc.invoice.archive</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!-- Legal hold wizard -->
+    <record id="view_fsc_legal_hold_wizard" model="ir.ui.view">
+        <field name="name">fsc.legal.hold.wizard.form</field>
+        <field name="model">fsc.legal.hold.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="move_id"/>
+                    <field name="current_retention_until"/>
+                    <field name="current_hold"/>
+                    <field name="action" widget="radio"/>
+                    <field name="hold_until" invisible="action != 'set'"/>
+                    <field name="retention_class" invisible="action != 'retention'"/>
+                    <field name="extra_years" invisible="action != 'retention'"/>
+                    <field name="reason" placeholder="Why? e.g. tax audit 2027, pending lawsuit, ..."/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object" string="Apply" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- GoBD export wizard -->
+    <record id="view_fsc_gobd_export" model="ir.ui.view">
+        <field name="name">fsc.gobd.export.form</field>
+        <field name="model">fsc.gobd.export</field>
+        <field name="arch" type="xml">
+            <form>
+                <p class="text-muted">
+                    Data access Z3 for a tax audit: issued invoices of the period (by invoice date) as
+                    CSV with a GDPdU index.xml, the original archived PDF/XML files, the audit log,
+                    a manifest and SHA256SUMS.txt in one ZIP file.
+                </p>
+                <group>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="include_documents"/>
+                </group>
+                <footer>
+                    <button name="action_export" type="object" string="Export ZIP" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_fsc_gobd_export" model="ir.actions.act_window">
+        <field name="name">GoBD export (Z3)</field>
+        <field name="res_model">fsc.gobd.export</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menus: Invoicing → GoBD -->
+    <menuitem id="menu_fsc_gobd_root" name="GoBD" parent="account.menu_finance" sequence="15"
+              groups="account.group_account_invoice"/>
+    <menuitem id="menu_fsc_audit_event" name="Audit log" parent="menu_fsc_gobd_root"
+              action="action_fsc_audit_event" sequence="10"/>
+    <menuitem id="menu_fsc_invoice_archive" name="Document archive" parent="menu_fsc_gobd_root"
+              action="action_fsc_invoice_archive" sequence="20"/>
+    <menuitem id="menu_fsc_gobd_export" name="GoBD export (Z3)" parent="menu_fsc_gobd_root"
+              action="action_fsc_gobd_export" sequence="30" groups="account.group_account_manager"/>
+</odoo>

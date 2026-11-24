@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Factur-X XMP: the embedded XML is the EN 16931 profile, not EXTENDED -->
+    <template id="account_invoice_pdfa_3_facturx_metadata_en16931"
+              inherit_id="account_edi_ubl_cii.account_invoice_pdfa_3_facturx_metadata">
+        <xpath expr="//*[local-name()='ConformanceLevel']" position="replace">
+            <fx:ConformanceLevel xmlns:fx="urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#" t-translation="off">EN 16931</fx:ConformanceLevel>
+        </xpath>
+    </template>
+</odoo>
