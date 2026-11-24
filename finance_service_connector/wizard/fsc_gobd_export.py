@@ -246,7 +246,7 @@ class FscGobdExport(models.TransientModel):
             '<DataSet><Version>1.0</Version>'
             f'<DataSupplier><Name>{escape(company.name or "")}</Name>'
             f'<Location>{escape(", ".join(filter(None, [company.street, company.zip, company.city])))}</Location>'
-            '<Comment>Odoo Finance Service Connector - GoBD Z3</Comment></DataSupplier>'
+            '<Comment>German E-Invoice for Odoo (Ähdus Technology) - GoBD Z3</Comment></DataSupplier>'
             f'<Media><Name>GoBD {_date(self.date_from)} - {_date(self.date_to)}</Name>{"".join(tables)}</Media>'
             '</DataSet>\n'
         )

@@ -1,4 +1,6 @@
-# Odoo Finance Service Connector
+# German E-Invoice (GoBD, ZUGFeRD, XRechnung)
+
+By [Ähdus Technology](https://ahdustechnology.com/).
 
 Odoo 17 module for **GoBD-compliant German invoicing**. It runs inside Odoo on its own:
 there is no connection to an external service. The invoice rules follow the Pitstop CRM
@@ -30,7 +32,7 @@ terms, closing notes and postscript.
 ## Install
 
 1. Put `finance_service_connector` on your Odoo addons path.
-2. Apps → Update Apps List → install **Finance Service Connector**. It installs Invoicing,
+2. Apps → Update Apps List → install **German E-Invoice (GoBD, ZUGFeRD, XRechnung)**. It installs Invoicing,
    `account_edi_ubl_cii`, `account_edi_ubl_cii_tax_extension`, `account_audit_trail` and
    `l10n_din5008` if needed.
 3. Settings → Invoicing → **GoBD (Germany)**: enter the Steuernummer if you have no VAT ID,

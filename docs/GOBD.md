@@ -1,4 +1,4 @@
-# GoBD requirement matrix — Finance Service Connector 2.0 (Odoo 17)
+# GoBD requirement matrix — German E-Invoice (GoBD, ZUGFeRD, XRechnung) 2.0 (Odoo 17)
 
 Application controls only; this is not a certificate. Legal basis: BMF-Schreiben GoBD
 (28.11.2019, changes 11.03.2024 and 14.07.2025), §14, §14a, §14b UStG, §33 UStDV, §147 AO,
