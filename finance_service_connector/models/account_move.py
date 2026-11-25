@@ -73,6 +73,8 @@ STATUTORY_NOTE = {
     'AE': 'Steuerschuldnerschaft des Leistungsempfängers',
 }
 
+DEFAULT_TITLES = {'Invoice', 'Rechnung', 'Credit Note', 'Gutschrift', 'Rechnungskorrektur'}
+
 # Content that is printed on the invoice / written to the XML. Locked once issued.
 FSC_LOCKED_FIELDS = {
     'partner_id', 'invoice_date', 'delivery_date', 'narration', 'ref', 'payment_reference',
@@ -459,11 +461,18 @@ class AccountMove(models.Model):
         # DIN 5008 title = the document title of the invoice; never "Gutschrift" for a correction
         super()._compute_l10n_din5008_document_title()
         for move in self.filtered(lambda m: m.fsc_is_gobd_document and m.state == 'posted'):
-            title = move.fs_document_title
-            if move.move_type == 'out_refund' and (not title or title == 'Gutschrift'):
-                title = 'Rechnungskorrektur' if (move.partner_id.lang or '').startswith('de') else _('Credit Note')
-            if title:
-                move.l10n_din5008_document_title = title
+            move.l10n_din5008_document_title = move._fsc_document_title()
+
+    def _fsc_document_title(self):
+        """Title printed on the PDF, in the document's language (the report renders
+        with the customer's language). A title the user typed is kept as is; the
+        default titles follow the language. Corrections are never "Gutschrift"
+        (§14 Abs. 4 Nr. 10 UStG reserves it for self-billing)."""
+        self.ensure_one()
+        title = (self.fs_document_title or '').strip()
+        if title and title not in DEFAULT_TITLES:
+            return title
+        return _('Credit Note') if self.move_type == 'out_refund' else _('Invoice')
 
     def _fsc_service_date_label(self):
         self.ensure_one()
@@ -709,11 +718,8 @@ class AccountMove(models.Model):
             default_values_list = [{} for _move in self]
         for move, vals in zip(self, default_values_list):
             vals.setdefault('fs_invoice_type', 'CORRECTION')
-            # §14 Abs. 4 Nr. 10 UStG reserves "Gutschrift" for self-billing: a correction is a
-            # "Rechnungskorrektur" (Odoo's German translation of "Credit Note" is "Gutschrift").
-            vals.setdefault('fs_document_title', 'Rechnungskorrektur'
-                            if (move.partner_id.lang or move.company_id.partner_id.lang or '').startswith('de')
-                            else _('Credit Note'))
+            # printed via _fsc_document_title(): "Credit Note" / "Rechnungskorrektur"
+            vals.setdefault('fs_document_title', _('Credit Note'))
             vals.setdefault('fs_service_type', move.fs_service_type)
             vals.setdefault('fs_buyer_reference', move.fs_buyer_reference)
             vals.setdefault('delivery_date', move.delivery_date)

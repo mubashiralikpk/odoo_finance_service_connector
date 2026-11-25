@@ -32,18 +32,22 @@
 
         <!-- document title -->
         <xpath expr="//div[hasclass('page')]/h2/span[@t-if=&quot;o.move_type == 'out_invoice' and o.state == 'posted'&quot;]" position="replace">
-            <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'" t-out="o.fs_document_title or 'Invoice'"/>
+            <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'" t-out="o._fsc_document_title()"/>
         </xpath>
         <xpath expr="//div[hasclass('page')]/h2/span[@t-elif=&quot;o.move_type == 'out_refund' and o.state == 'posted'&quot;]" position="replace">
-            <span t-elif="o.move_type == 'out_refund' and o.state == 'posted'"
-                  t-out="o.fs_document_title if o.fs_document_title and o.fs_document_title != 'Gutschrift' else ('Rechnungskorrektur' if (o.partner_id.lang or '').startswith('de') else 'Credit Note')"/>
+            <span t-elif="o.move_type == 'out_refund' and o.state == 'posted'" t-out="o._fsc_document_title()"/>
         </xpath>
 
         <!-- delivery / service date or period (§14 Abs. 4 Nr. 6 UStG) -->
+        <!-- the date label of a correction: not "Gutschriftsdatum" (§14 Abs. 4 Nr. 10 UStG) -->
+        <xpath expr="//div[@name='invoice_date']//t[@t-elif=&quot;o.move_type == 'out_refund'&quot;]" position="replace">
+            <t t-elif="o.move_type == 'out_refund'"><strong>Credit Note Date:</strong></t>
+        </xpath>
         <xpath expr="//div[@name='delivery_date']" position="replace">
             <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
                  t-if="o.delivery_date" name="delivery_date">
-                <strong t-out="o._fsc_service_date_label() if o.fsc_is_gobd_document else 'Delivery Date'">Delivery Date</strong>:<br/>
+                <strong t-if="o.fsc_is_gobd_document" t-out="o._fsc_service_date_label()"/>
+                <strong t-else="">Delivery Date</strong>:<br/>
                 <span t-field="o.delivery_date">2023-09-25</span>
                 <t t-if="o.fs_service_date_to"> – <span t-field="o.fs_service_date_to"/></t>
             </div>

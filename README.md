@@ -66,7 +66,15 @@ with 0 errors and 0 warnings.
 
 The XRechnung (UBL) output passes the EN 16931 UBL schematron (the rules listed at
 [docs.peppol.eu](https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/)) and the KoSIT XRechnung
-schematron with 0 errors. The app ships a German translation.
+schematron with 0 errors.
+
+## Languages
+
+The app is fully translated into **English (US)** and **German**. Each user sees the app in the
+language set in their preferences (avatar → My Profile → Language). Invoices and corrections are
+printed in the **customer's** language (contact → Language): „Rechnung“ / „Rechnungskorrektur“ for
+German customers, "Invoice" / "Credit Note" for English ones, whatever language the user who issued
+them works in. To add German to an existing database: Settings → Languages → Add → German.
 
 Not covered by these tests: PDF/A validation with veraPDF and the UBL XSD.
 
