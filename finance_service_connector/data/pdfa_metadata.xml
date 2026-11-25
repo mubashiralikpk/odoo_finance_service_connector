@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Factur-X XMP: the embedded XML is the EN 16931 profile, not EXTENDED -->
+    <!-- Factur-X XMP: the embedded XML is the EN 16931 profile, not EXTENDED.
+         PDF/A level B (PDF/A-3b), the level ZUGFeRD / Factur-X use: Odoo declares level A but only
+         adds an empty structure tree, so the page content is not tagged as PDF/A-3a requires. -->
     <template id="account_invoice_pdfa_3_facturx_metadata_en16931"
               inherit_id="account_edi_ubl_cii.account_invoice_pdfa_3_facturx_metadata">
         <xpath expr="//*[local-name()='ConformanceLevel']" position="replace">
             <fx:ConformanceLevel xmlns:fx="urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#" t-translation="off">EN 16931</fx:ConformanceLevel>
+        </xpath>
+        <xpath expr="//*[local-name()='conformance']" position="replace">
+            <pdfaid:conformance xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/" t-translation="off">B</pdfaid:conformance>
         </xpath>
     </template>
 </odoo>

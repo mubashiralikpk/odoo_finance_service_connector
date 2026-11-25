@@ -5,7 +5,7 @@ import io
 import logging
 
 from odoo import api, fields, models, tools
-from odoo.tools.pdf import DictionaryObject, NameObject, NumberObject, OdooPdfFileReader, OdooPdfFileWriter
+from odoo.tools.pdf import DictionaryObject, NameObject, NumberObject, OdooPdfFileReader, OdooPdfFileWriter, createStringObject
 
 _logger = logging.getLogger(__name__)
 
@@ -24,25 +24,27 @@ class AccountMoveSend(models.TransientModel):
         reader = OdooPdfFileReader(io.BytesIO(pdf_values['raw']), strict=False)
         writer = OdooPdfFileWriter()
         writer.cloneReaderDocumentRoot(reader)
-        if writer.is_pdfa:
-            return  # Odoo already produced PDF/A-3 (zugferd / facturx customers)
-        if '/Outlines' not in writer._root_object:
-            # Odoo's converter expects an outline tree; some wkhtmltopdf builds do not write one.
-            outlines = writer._addObject(DictionaryObject({
-                NameObject('/Type'): NameObject('/Outlines'),
-                NameObject('/Count'): NumberObject(0),
-            }))
-            writer._root_object[NameObject('/Outlines')] = outlines
-        try:
-            writer.convert_to_pdfa()
-        except Exception as e:  # noqa: BLE001
-            _logger.exception('GoBD: PDF/A conversion failed for %s: %s', invoice.name, e)
-            return
-        metadata = self.env['ir.qweb']._render(
-            'account_edi_ubl_cii.account_invoice_pdfa_3_facturx_metadata',
-            {'title': invoice.name, 'date': fields.Date.context_today(self)},
-        )
-        writer.add_file_metadata(metadata.encode())
+        if not writer.is_pdfa:  # Odoo converts only for ZUGFeRD / Factur-X customers
+            if '/Outlines' not in writer._root_object:
+                # Odoo's converter expects an outline tree; some wkhtmltopdf builds do not write one.
+                outlines = writer._addObject(DictionaryObject({
+                    NameObject('/Type'): NameObject('/Outlines'),
+                    NameObject('/Count'): NumberObject(0),
+                }))
+                writer._root_object[NameObject('/Outlines')] = outlines
+            try:
+                writer.convert_to_pdfa()
+            except Exception as e:  # noqa: BLE001
+                _logger.exception('GoBD: PDF/A conversion failed for %s: %s', invoice.name, e)
+                return
+            metadata = self.env['ir.qweb']._render(
+                'account_edi_ubl_cii.account_invoice_pdfa_3_facturx_metadata',
+                {'title': invoice.name, 'date': fields.Date.context_today(self)},
+            )
+            writer.add_file_metadata(metadata.encode())
+        # document language (the PDF is printed in the customer's language)
+        lang = invoice.partner_id.lang or invoice.company_id.partner_id.lang or self.env.lang or 'en_US'
+        writer._root_object[NameObject('/Lang')] = createStringObject(lang.replace('_', '-'))
         buffer = io.BytesIO()
         writer.write(buffer)
         pdf_values['raw'] = buffer.getvalue()
