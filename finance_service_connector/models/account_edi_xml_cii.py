@@ -72,6 +72,13 @@ class AccountEdiXmlCII(models.AbstractModel):
             vals['billing_end'] = invoice.fs_service_date_to
         return vals
 
+    def _export_invoice_constraints(self, invoice, vals):
+        constraints = super()._export_invoice_constraints(invoice, vals)
+        # BR-CO-26 is met by the VAT ID (BT-31) OR the legal registration ID (BT-30)
+        if self._fsc_applies(invoice) and invoice.company_id.company_registry:
+            constraints.pop('seller_identifier', None)
+        return constraints
+
     def _export_invoice(self, invoice):
         xml, errors = super()._export_invoice(invoice)
         if not self._fsc_applies(invoice) or not xml:
@@ -91,6 +98,11 @@ class AccountEdiXmlCII(models.AbstractModel):
             reg = _el('SpecifiedTaxRegistration')
             reg.append(_el('ID', tax_number, schemeID='FC'))
             seller.append(reg)
+
+        # BT-30 register number: Odoo writes scheme 0002 (French SIRENE); only keep it for France
+        if seller is not None and invoice.company_id.country_id.code != 'FR':
+            for legal_id in seller.findall('ram:SpecifiedLegalOrganization/ram:ID', NS):
+                legal_id.attrib.pop('schemeID', None)
 
         # BG-8 buyer address = invoice snapshot (what the PDF shows)
         buyer = agreement.find('ram:BuyerTradeParty', NS)

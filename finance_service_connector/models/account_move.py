@@ -262,6 +262,14 @@ class AccountMove(models.Model):
         if not (company.vat or company.fsc_tax_number):
             issues.append(_('Your company needs a VAT ID (USt-IdNr.) or a tax number (Steuernummer) '
                             '- §14 Abs. 4 Nr. 2 UStG. Set it in Settings → Invoicing → GoBD.'))
+        if not (company.vat or company.company_registry):
+            issues.append(_('Without a VAT ID the e-invoice needs your company register number '
+                            '(Handelsregister / Vereinsregister, e.g. "HRB 12345" or "VR 1234") - EN 16931 BR-CO-26. '
+                            'Set it as Company ID in Settings → Companies, or add the VAT ID.'))
+        if not (seller.phone or seller.mobile):
+            issues.append(_('Your company needs a phone number on the e-invoice (BR-DE-6): Settings → Companies.'))
+        if not company.email:
+            issues.append(_('Your company needs an email address on the e-invoice (BR-DE-7): Settings → Companies.'))
 
         # -- Buyer (§14 Abs. 4 Nr. 1 UStG, EN 16931 BR-07 / BR-11)
         if not buyer:
