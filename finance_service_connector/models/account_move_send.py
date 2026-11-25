@@ -5,6 +5,8 @@ import io
 import logging
 
 from odoo import api, fields, models, tools
+
+from ..tools.pdf_fonts import fix_glyph_widths
 from odoo.tools.pdf import DictionaryObject, NameObject, NumberObject, OdooPdfFileReader, OdooPdfFileWriter, createStringObject
 
 _logger = logging.getLogger(__name__)
@@ -42,6 +44,8 @@ class AccountMoveSend(models.TransientModel):
                 {'title': invoice.name, 'date': fields.Date.context_today(self)},
             )
             writer.add_file_metadata(metadata.encode())
+        # PDF/A 6.2.11.5: glyph widths must match the embedded fonts (Odoo only fixes them with fonttools)
+        fix_glyph_widths(writer)
         # document language (the PDF is printed in the customer's language)
         lang = invoice.partner_id.lang or invoice.company_id.partner_id.lang or self.env.lang or 'en_US'
         writer._root_object[NameObject('/Lang')] = createStringObject(lang.replace('_', '-'))
