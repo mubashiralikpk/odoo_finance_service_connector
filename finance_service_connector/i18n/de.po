@@ -1,0 +1,1703 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-25 07:58+0000\n"
+"PO-Revision-Date: 2026-11-25 07:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "%s archived document(s) match their SHA-256 hash."
+msgstr "%s archivierte(s) Dokument(e) stimmen mit ihrem SHA-256-Hash überein."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid ":<br/>"
+msgstr ":<br/>"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid ""
+"<span invisible=\"not fsc_legal_hold\" class=\"badge text-bg-danger "
+"ms-2\">Legal hold</span>"
+msgstr ""
+"<span invisible=\"not fsc_legal_hold\" class=\"badge text-bg-danger "
+"ms-2\">Aufbewahrungssperre</span>"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "<strong>Buyer reference:</strong><br/>"
+msgstr "<strong>Käuferreferenz:</strong><br/>"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "<strong>Member number:</strong><br/>"
+msgstr "<strong>Mitgliedsnummer:</strong><br/>"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "<strong>Not ready to issue (GoBD / §14 UStG / EN 16931)</strong>"
+msgstr "<strong>Noch nicht ausstellbar (GoBD / §14 UStG / EN 16931)</strong>"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"A correction is issued as a credit note: open the original invoice and click"
+" \"Credit Note\"."
+msgstr ""
+"Eine Korrektur wird als Rechnungskorrektur ausgestellt: Öffnen Sie die "
+"ursprüngliche Rechnung und klicken Sie auf „Gutschrift“."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"A correction must reference the original invoice. Create it with \"Credit "
+"Note\" from the original invoice."
+msgstr ""
+"Eine Korrektur muss sich auf die ursprüngliche Rechnung beziehen. Erstellen "
+"Sie sie über „Gutschrift“ aus der ursprünglichen Rechnung."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_legal_hold_wizard.py:0
+#, python-format
+msgid "A reason is required."
+msgstr "Eine Begründung ist erforderlich."
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_chart_template
+msgid "Account Chart Template"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_move_send
+msgid "Account Move Send"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__action
+msgid "Action"
+msgstr "Aktion"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Add at least one article line."
+msgstr "Fügen Sie mindestens eine Artikelposition hinzu."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_street2
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_street2
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_street2
+msgid "Address supplement"
+msgstr "Adresszusatz"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Address supplement (optional)"
+msgstr "Adresszusatz (optional)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__new_value
+msgid "After"
+msgstr "Nachher"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "An export (G) needs a member outside the EU."
+msgstr "Eine Ausfuhrlieferung (G) erfordert einen Empfänger außerhalb der EU."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "An export (G) needs the export evidence reference (Ausfuhrnachweis)."
+msgstr ""
+"Eine Ausfuhrlieferung (G) erfordert die Referenz des Ausfuhrnachweises."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "An intra-community supply (K) needs a member in another EU country."
+msgstr ""
+"Eine innergemeinschaftliche Lieferung (K) erfordert einen Empfänger in einem"
+" anderen EU-Mitgliedstaat."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_legal_hold_wizard
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Archive documents"
+msgstr "Dokumente archivieren"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_archive_state__archived
+msgid "Archived"
+msgstr "Archiviert"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__archived_at
+msgid "Archived At"
+msgstr "Archiviert am"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__archived_by_id
+msgid "Archived By"
+msgstr "Archiviert von"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_archive_ids
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_archive_ids
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_archive_ids
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Archived documents"
+msgstr "Archivierte Dokumente"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__archive_failed
+msgid "Archiving failed"
+msgstr "Archivierung fehlgeschlagen"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Article"
+msgstr "Artikel"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__event_at
+msgid "At"
+msgstr "Zeitpunkt"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_ir_attachment
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__attachment_id
+msgid "Attachment"
+msgstr "Anhang"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_company__check_account_audit_trail
+msgid "Audit Trail"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_audit_event_ids
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_audit_event_ids
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_audit_event_ids
+#: model:ir.ui.menu,name:finance_service_connector.menu_fsc_audit_event
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Audit log"
+msgstr "Protokoll"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_edi_xml_ubl_de
+msgid "BIS3 DE (XRechnung)"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__old_value
+msgid "Before"
+msgstr "Vorher"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_retention_class__ao_147_books
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__retention_class__ao_147_books
+msgid "Books / annual accounts (§147 AO) - 10 years"
+msgstr "Bücher / Jahresabschlüsse (§147 AO) – 10 Jahre"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Buyer reference"
+msgstr "Käuferreferenz"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_buyer_reference
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_buyer_reference
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_buyer_reference
+msgid "Buyer reference / Leitweg-ID"
+msgstr "Käuferreferenz / Leitweg-ID"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Buyer reference / Leitweg-ID (optional)"
+msgstr "Käuferreferenz / Leitweg-ID (optional)"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_gobd_export
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_legal_hold_wizard
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__action__retention
+msgid "Change retention"
+msgstr "Aufbewahrung ändern"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Choose the member / customer."
+msgstr "Wählen Sie das Mitglied / den Kunden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Choose your bank account (Recipient Bank on the Other Info tab): the "
+"e-invoice needs payment instructions (BR-DE-1)."
+msgstr ""
+"Wählen Sie Ihr Bankkonto (Empfängerbank im Reiter „Weitere Informationen“): "
+"Die E-Rechnung benötigt Zahlungsinformationen (BR-DE-1)."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_city
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_city
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_city
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "City"
+msgstr "Ort"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Closing notes / footer text (optional)"
+msgstr "Schlusstext / Fußzeile (optional)"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__company_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__company_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__company_id
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__correction
+msgid "Corrected by credit note"
+msgstr "Durch Rechnungskorrektur berichtigt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__correction
+msgid "Correction"
+msgstr "Korrektur"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_res_company__fsc_retention_years
+#: model:ir.model.fields,help:finance_service_connector.field_res_config_settings__fsc_retention_years
+msgid ""
+"Counted from the end of the issue year. The legal minimum is 8 years (§14b "
+"UStG, §147 AO)."
+msgstr ""
+"Gerechnet ab dem Ende des Ausstellungsjahres. Das gesetzliche Minimum "
+"beträgt 8 Jahre (§14b UStG, §147 AO)."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_country_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_country_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_country_id
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Country"
+msgstr "Land"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__create_uid
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__create_uid
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__create_uid
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__create_date
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__create_date
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__create_date
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Credit Note"
+msgstr "Rechnungskorrektur"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_config_settings__fsc_hash_lock_active
+msgid "Customer invoices locked with hash"
+msgstr "Ausgangsrechnungen mit Hash gesperrt"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_gobd_export
+msgid ""
+"Data access Z3 for a tax audit: issued invoices of the period (by invoice date) as\n"
+"                    CSV with a GDPdU index.xml, the original archived PDF/XML files, the audit log,\n"
+"                    a manifest and SHA256SUMS.txt in one ZIP file."
+msgstr ""
+"Datenzugriff Z3 für eine Betriebsprüfung: ausgestellte Rechnungen des Zeitraums (nach Rechnungsdatum) als\n"
+"                    CSV mit GDPdU-index.xml, die archivierten Original-PDF/XML-Dateien, das Protokoll,\n"
+"                    ein Manifest und SHA256SUMS.txt in einer ZIP-Datei."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__date_from
+msgid "Date From"
+msgstr "Von"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__date_to
+msgid "Date To"
+msgstr "Bis"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__hard_delete_blocked
+#, python-format
+msgid "Delete refused"
+msgstr "Löschen verweigert"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Delivery / service date"
+msgstr "Liefer-/Leistungsdatum"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_service_type
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_service_type
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_service_type
+msgid "Delivery / service type"
+msgstr "Liefer-/Leistungsart"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "Delivery Date"
+msgstr "Lieferdatum"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_service_type__delivery_date
+#, python-format
+msgid "Delivery date"
+msgstr "Lieferdatum"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_service_type__delivery_period
+msgid "Delivery period"
+msgstr "Lieferzeitraum"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__display_name
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__display_name
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__display_name
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: finance_service_connector
+#: model:ir.ui.menu,name:finance_service_connector.menu_fsc_invoice_archive
+msgid "Document archive"
+msgstr "Dokumentenarchiv"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_document_title
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_document_title
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_document_title
+msgid "Document title"
+msgstr "Dokumenttitel"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__archived
+msgid "Documents archived"
+msgstr "Dokumente archiviert"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_tree
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Download"
+msgstr "Herunterladen"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__driver_credits
+msgid "Driver credits"
+msgstr "Fahrerguthaben"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_email
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_email
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_email
+msgid "Email"
+msgstr "E-Mail"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Email (optional)"
+msgstr "E-Mail (optional)"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "Enable"
+msgstr "Aktivieren"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_account_bank_statement_line__fsc_retention_until
+#: model:ir.model.fields,help:finance_service_connector.field_account_move__fsc_retention_until
+#: model:ir.model.fields,help:finance_service_connector.field_account_payment__fsc_retention_until
+#: model:ir.model.fields,help:finance_service_connector.field_fsc_invoice_archive__retention_until
+#: model:ir.model.fields,help:finance_service_connector.field_fsc_legal_hold_wizard__current_retention_until
+msgid ""
+"End of the issue year + the legal retention period (+ extra years). Deletion"
+" is not possible before this date or while a legal hold is active."
+msgstr ""
+"Ende des Ausstellungsjahres + gesetzliche Aufbewahrungsfrist (+ zusätzliche "
+"Jahre). Vor diesem Datum oder während einer Aufbewahrungssperre ist kein "
+"Löschen möglich."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Enter the start and end of the service period."
+msgstr "Geben Sie Beginn und Ende des Leistungszeitraums ein."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_audit_event_search
+msgid "Event"
+msgstr "Ereignis"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__event_type
+msgid "Event Type"
+msgstr "Ereignisart"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__event
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "Export"
+msgstr "Export"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_gobd_export
+msgid "Export ZIP"
+msgstr "ZIP exportieren"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_export_evidence_ref
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_export_evidence_ref
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_export_evidence_ref
+msgid "Export evidence reference"
+msgstr "Ausfuhrnachweis-Referenz"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Export evidence: %s"
+msgstr "Ausfuhrnachweis: %s"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_retention_extra_years
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_retention_extra_years
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_retention_extra_years
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__extra_years
+msgid "Extra retention years"
+msgstr "Zusätzliche Aufbewahrungsjahre"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_legal_hold_wizard.py:0
+#, python-format
+msgid "Extra years cannot be negative."
+msgstr "Zusätzliche Jahre können nicht negativ sein."
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_edi_xml_cii
+msgid "Factur-x/XRechnung CII 2.2.0"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__file
+msgid "File"
+msgstr "Datei"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__filename
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__filename
+msgid "Filename"
+msgstr "Dateiname"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"For XRechnung customers the address comes from the customer record. Edit the"
+" customer instead of this invoice."
+msgstr ""
+"Bei XRechnung-Kunden stammt die Adresse aus dem Kundenstamm. Bearbeiten Sie "
+"den Kunden statt dieser Rechnung."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_is_gobd_document
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_is_gobd_document
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_is_gobd_document
+msgid "Fsc Is Gobd Document"
+msgstr "GoBD-Dokument"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_legal_statements
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_legal_statements
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_legal_statements
+msgid "Fsc Legal Statements"
+msgstr "Rechtliche Hinweise"
+
+#. module: finance_service_connector
+#: model:ir.ui.menu,name:finance_service_connector.menu_fsc_gobd_root
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_out_invoice_tree_inherit_fsc_gobd
+msgid "GoBD"
+msgstr "GoBD"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "GoBD (Germany)"
+msgstr "GoBD (Deutschland)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_archive_state
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_archive_state
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_archive_state
+msgid "GoBD archive"
+msgstr "GoBD-Archiv"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_fsc_invoice_archive
+msgid "GoBD archived invoice document"
+msgstr "GoBD-archiviertes Rechnungsdokument"
+
+#. module: finance_service_connector
+#: model:ir.actions.act_window,name:finance_service_connector.action_fsc_audit_event
+msgid "GoBD audit log"
+msgstr "GoBD-Protokoll"
+
+#. module: finance_service_connector
+#: model:ir.actions.act_window,name:finance_service_connector.action_fsc_invoice_archive
+msgid "GoBD document archive"
+msgstr "GoBD-Dokumentenarchiv"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__exported
+msgid "GoBD export"
+msgstr "GoBD-Export"
+
+#. module: finance_service_connector
+#: model:ir.actions.act_window,name:finance_service_connector.action_fsc_gobd_export
+#: model:ir.model,name:finance_service_connector.model_fsc_gobd_export
+#: model:ir.ui.menu,name:finance_service_connector.menu_fsc_gobd_export
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "GoBD export (Z3)"
+msgstr "GoBD-Export (Z3)"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_fsc_audit_event
+msgid "GoBD invoice audit event"
+msgstr "GoBD-Protokollereignis"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_fsc_legal_hold_wizard
+msgid "GoBD legal hold / retention"
+msgstr "GoBD Aufbewahrungssperre / Aufbewahrung"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"GoBD: %(names)s has been issued and can no longer be changed (%(fields)s). "
+"Create a credit note to correct it."
+msgstr ""
+"GoBD: %(names)s wurde ausgestellt und kann nicht mehr geändert werden "
+"(%(fields)s). Erstellen Sie zur Korrektur eine Rechnungskorrektur."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"GoBD: %s has been issued and cannot be reset to draft. To correct or cancel "
+"it, click \"Credit Note\" (Gutschrift / Rechnungskorrektur)."
+msgstr ""
+"GoBD: %s wurde ausgestellt und kann nicht auf Entwurf zurückgesetzt werden. "
+"Zum Korrigieren oder Stornieren klicken Sie auf „Gutschrift“ "
+"(Rechnungskorrektur)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"GoBD: %s has been issued. Cancel it with a credit note (\"Credit Note\" "
+"button)."
+msgstr ""
+"GoBD: %s wurde ausgestellt. Stornieren Sie sie mit einer Rechnungskorrektur "
+"(Schaltfläche „Gutschrift“)."
+
+#. module: finance_service_connector
+#: model:ir.actions.server,name:finance_service_connector.ir_cron_fsc_gobd_maintenance_ir_actions_server
+msgid "GoBD: archive pending invoices and verify integrity"
+msgstr "GoBD: ausstehende Rechnungen archivieren und Integrität prüfen"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/fsc_invoice_archive.py:0
+#, python-format
+msgid "GoBD: archived documents cannot be changed."
+msgstr "GoBD: Archivierte Dokumente können nicht geändert werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/fsc_invoice_archive.py:0
+#, python-format
+msgid "GoBD: archived documents cannot be deleted."
+msgstr "GoBD: Archivierte Dokumente können nicht gelöscht werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/fsc_audit_event.py:0
+#, python-format
+msgid "GoBD: audit log entries cannot be changed."
+msgstr "GoBD: Protokolleinträge können nicht geändert werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/fsc_audit_event.py:0
+#, python-format
+msgid "GoBD: audit log entries cannot be deleted."
+msgstr "GoBD: Protokolleinträge können nicht gelöscht werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"GoBD: issued invoices are kept for the legal retention period and cannot be "
+"deleted (%s)."
+msgstr ""
+"GoBD: Ausgestellte Rechnungen werden für die gesetzliche Aufbewahrungsfrist "
+"aufbewahrt und können nicht gelöscht werden (%s)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/ir_attachment.py:0
+#, python-format
+msgid "GoBD: this file is an archived invoice document and cannot be changed."
+msgstr ""
+"GoBD: Diese Datei ist ein archiviertes Rechnungsdokument und kann nicht "
+"geändert werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/ir_attachment.py:0
+#, python-format
+msgid "GoBD: this file is an archived invoice document and cannot be deleted."
+msgstr ""
+"GoBD: Diese Datei ist ein archiviertes Rechnungsdokument und kann nicht "
+"gelöscht werden."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_audit_event_search
+msgid "Group By"
+msgstr "Gruppieren nach"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__hold_until
+msgid "Hold until (optional)"
+msgstr "Sperre bis (optional)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__id
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__id
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__id
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__include_documents
+msgid "Include original PDF/XML"
+msgstr "Original-PDF/XML einschließen"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__integrity_failed
+msgid "Integrity FAILED"
+msgstr "Integrität FEHLERHAFT"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__last_check_ok
+#, python-format
+msgid "Integrity OK"
+msgstr "Integrität OK"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Integrity check FAILED for: %s"
+msgstr "Integritätsprüfung FEHLGESCHLAGEN für: %s"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__integrity_checked
+msgid "Integrity checked"
+msgstr "Integrität geprüft"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_archive_state__failed
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "Integrity failed"
+msgstr "Integrität fehlerhaft"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_intro_text
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_intro_text
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_intro_text
+msgid "Introductory text"
+msgstr "Einleitungstext"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Introductory text (optional)"
+msgstr "Einleitungstext (optional)"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__move_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__move_id
+#, python-format
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_retention_class__ustg_14b
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__retention_class__ustg_14b
+msgid "Invoice (§14b UStG / §147 AO) - 8 years"
+msgstr "Rechnung (§14b UStG / §147 AO) – 8 Jahre"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "Invoice retention"
+msgstr "Aufbewahrung von Rechnungen"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_company__fsc_retention_years
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_config_settings__fsc_retention_years
+msgid "Invoice retention (years)"
+msgstr "Aufbewahrung von Rechnungen (Jahre)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_invoice_type
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_invoice_type
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_invoice_type
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Invoice type"
+msgstr "Rechnungsart"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Issue"
+msgstr "Ausstellung"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__issued
+msgid "Issued"
+msgstr "Ausgestellt"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid ""
+"Issued and locked (GoBD). Corrections only with a credit note.\n"
+"                    Archive:"
+msgstr ""
+"Ausgestellt und gesperrt (GoBD). Korrekturen nur per Rechnungskorrektur.\n"
+"                    Archiv:"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_issued_at
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_issued_at
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_issued_at
+msgid "Issued at"
+msgstr "Ausgestellt am"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_issued_by_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_issued_by_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_issued_by_id
+msgid "Issued by"
+msgstr "Ausgestellt von"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_move
+msgid "Journal Entry"
+msgstr "Buchungssatz"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__kind
+msgid "Kind"
+msgstr "Art"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__write_uid
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__write_uid
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__write_uid
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__write_date
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_gobd_export__write_date
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__write_date
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__last_check_at
+msgid "Last integrity check"
+msgstr "Letzte Integritätsprüfung"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_legal_hold
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_legal_hold
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_legal_hold
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__current_hold
+msgid "Legal hold"
+msgstr "Aufbewahrungssperre"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+#, python-format
+msgid "Legal hold / retention"
+msgstr "Aufbewahrungssperre / Aufbewahrung"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_legal_hold_reason
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_legal_hold_reason
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_legal_hold_reason
+msgid "Legal hold reason"
+msgstr "Grund der Aufbewahrungssperre"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__legal_hold_released
+msgid "Legal hold released"
+msgstr "Aufbewahrungssperre aufgehoben"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__legal_hold_set
+msgid "Legal hold set"
+msgstr "Aufbewahrungssperre gesetzt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_legal_hold_until
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_legal_hold_until
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_legal_hold_until
+msgid "Legal hold until"
+msgstr "Aufbewahrungssperre bis"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_tax__fsc_legal_note
+msgid "Legal note on invoice"
+msgstr "Rechtlicher Hinweis auf der Rechnung"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Line \"%(line)s\": the 0%% tax \"%(tax)s\" has no VAT category. Set the Tax "
+"Category Code (Z, E, AE, K or G) on the tax."
+msgstr ""
+"Position „%(line)s“: Die 0%%-Steuer „%(tax)s“ hat keine USt-Kategorie. "
+"Setzen Sie den Steuerkategorie-Code (Z, E, AE, K oder G) an der Steuer."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Line \"%s\" must have exactly one VAT tax (EN 16931 BR-CO-04)."
+msgstr "Position „%s“ muss genau eine Umsatzsteuer haben (EN 16931 BR-CO-04)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Line \"%s\" needs a description."
+msgstr "Position „%s“ benötigt eine Beschreibung."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Line %s"
+msgstr "Position %s"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "Lock issued invoices with hash"
+msgstr "Ausgestellte Rechnungen mit Hash sperren"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__manual
+msgid "Manual"
+msgstr "Manuell"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Member"
+msgstr "Mitglied"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_member_number
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_member_number
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_member_number
+#, python-format
+msgid "Member number"
+msgstr "Mitgliedsnummer"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Member number (optional)"
+msgstr "Mitgliedsnummer (optional)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__membership
+msgid "Membership"
+msgstr "Mitgliedschaft"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__mimetype
+msgid "Mimetype"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_compliance_issues
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_compliance_issues
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_compliance_issues
+msgid "Missing for issue"
+msgstr "Fehlt für die Ausstellung"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_audit_event_search
+msgid "Month"
+msgstr "Monat"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__move_id
+msgid "Move"
+msgstr ""
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Net price"
+msgstr "Nettopreis"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Net total"
+msgstr "Netto gesamt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_archive_state__none
+msgid "Not issued"
+msgstr "Nicht ausgestellt"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid ""
+"Odoo's inalterability hash on customer invoice journals + audit trail. "
+"Cannot be switched off once entries are hashed."
+msgstr ""
+"Odoo-Unveränderbarkeits-Hash für Ausgangsrechnungsjournale + Prüfpfad. Kann "
+"nicht mehr abgeschaltet werden, sobald Buchungen gehasht sind."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Only for exports (VAT category G)"
+msgstr "Nur für Ausfuhren (USt-Kategorie G)"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_legal_hold_wizard.py:0
+#, python-format
+msgid "Only issued invoices have a retention period."
+msgstr "Nur ausgestellte Rechnungen haben eine Aufbewahrungsfrist."
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__other
+msgid "Other"
+msgstr "Sonstige"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_retention_class__other_legal
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__retention_class__other_legal
+msgid "Other legal obligation - 10 years"
+msgstr "Sonstige gesetzliche Pflicht – 10 Jahre"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__kind__pdf
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "PDF"
+msgstr "PDF"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__pos_legal
+msgid "POS legal"
+msgstr "Kasse (Rechnung)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__payment_linked
+msgid "Payment linked"
+msgstr "Zahlung verknüpft"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_payment_terms_text
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_payment_terms_text
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_payment_terms_text
+msgid "Payment terms"
+msgstr "Zahlungsbedingungen"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid ""
+"Payment terms (optional), e.g. Payable within 14 days without deduction"
+msgstr ""
+"Zahlungsbedingungen (optional), z. B. Zahlbar innerhalb von 14 Tagen ohne "
+"Abzug"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_archive_state__pending
+msgid "Pending"
+msgstr "Ausstehend"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_service_type__performance_date
+msgid "Performance date"
+msgstr "Leistungsdatum"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_service_type__performance_period
+msgid "Performance period"
+msgstr "Leistungszeitraum"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_zip
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_zip
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_zip
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Postcode"
+msgstr "PLZ"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Postcode / City"
+msgstr "PLZ / Ort"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_postscript
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_postscript
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_postscript
+msgid "Postscript"
+msgstr "Nachsatz"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Postscript (optional)"
+msgstr "Nachsatz (optional)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__prev_hash
+msgid "Prev Hash"
+msgstr "Vorheriger Hash"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_res_company__fsc_tax_number
+#: model:ir.model.fields,help:finance_service_connector.field_res_config_settings__fsc_tax_number
+msgid ""
+"Printed on invoices and written to the e-invoice (BT-32) when set. §14 Abs. "
+"4 Nr. 2 UStG requires the VAT ID or the tax number."
+msgstr ""
+"Wird auf Rechnungen gedruckt und in die E-Rechnung (BT-32) übernommen. §14 "
+"Abs. 4 Nr. 2 UStG verlangt die USt-IdNr. oder die Steuernummer."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_audit_event_search
+msgid "Problems"
+msgstr "Probleme"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_retention_class__ustg_15a
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__retention_class__ustg_15a
+msgid "Property-related (§14b Abs. 1 S. 5 UStG) - 10 years"
+msgstr "Grundstücksbezogen (§14b Abs. 1 S. 5 UStG) – 10 Jahre"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Qty"
+msgstr "Menge"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__reason
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__reason
+msgid "Reason"
+msgstr "Grund"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__action__release
+msgid "Release legal hold"
+msgstr "Aufbewahrungssperre aufheben"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_account_bank_statement_line__fsc_export_evidence_ref
+#: model:ir.model.fields,help:finance_service_connector.field_account_move__fsc_export_evidence_ref
+#: model:ir.model.fields,help:finance_service_connector.field_account_payment__fsc_export_evidence_ref
+msgid ""
+"Required for VAT category G (export outside the EU): customs / "
+"Ausfuhrnachweis reference."
+msgstr ""
+"Erforderlich für USt-Kategorie G (Ausfuhr aus der EU): Zoll- / "
+"Ausfuhrnachweis-Referenz."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__reset_blocked
+#, python-format
+msgid "Reset to draft refused"
+msgstr "Zurücksetzen auf Entwurf verweigert"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_retention_until
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_retention_until
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_retention_until
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__retention_until
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__current_retention_until
+msgid "Retain until"
+msgstr "Aufbewahren bis"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Retention (§14b UStG / §147 AO)"
+msgstr "Aufbewahrung (§14b UStG / §147 AO)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__retention_class
+msgid "Retention Class"
+msgstr "Aufbewahrungsklasse"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__retention_changed
+msgid "Retention changed"
+msgstr "Aufbewahrung geändert"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_retention_class
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_retention_class
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_retention_class
+msgid "Retention class"
+msgstr "Aufbewahrungsklasse"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Reverse charge / intra-EU supply needs the member's VAT ID (USt-IdNr.)."
+msgstr ""
+"Steuerschuldnerschaft des Leistungsempfängers / innergemeinschaftliche "
+"Lieferung erfordert die USt-IdNr. des Empfängers."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Reverse charge, intra-EU and export invoices need your company VAT ID (BR-"
+"AE-02 / BR-IC-02 / BR-G-02)."
+msgstr ""
+"Rechnungen mit Steuerschuldumkehr, innergemeinschaftlicher Lieferung oder "
+"Ausfuhr erfordern die USt-IdNr. Ihres Unternehmens (BR-AE-02 / BR-IC-02 / "
+"BR-G-02)."
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__room_booking
+msgid "Room booking"
+msgstr "Raumbuchung"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__hash
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__sha256
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_service_type__none
+msgid "Same as invoice date"
+msgstr "Entspricht dem Rechnungsdatum"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_service_date_to
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_service_date_to
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_service_date_to
+msgid "Service period end"
+msgstr "Ende des Leistungszeitraums"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__action__set
+msgid "Set legal hold"
+msgstr "Aufbewahrungssperre setzen"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__file_size
+msgid "Size (bytes)"
+msgstr "Größe (Bytes)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__standard
+msgid "Standard"
+msgstr "Standard"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_account_tax__fsc_legal_note
+msgid ""
+"Statement printed on the invoice for this VAT treatment, e.g. the exemption "
+"paragraph (§14 Abs. 4 Nr. 8 UStG) or \"Steuerfreie innergemeinschaftliche "
+"Lieferung\". For reverse charge (AE) the statutory phrase "
+"\"Steuerschuldnerschaft des Leistungsempfängers\" is printed when empty."
+msgstr ""
+"Hinweis auf der Rechnung für diese steuerliche Behandlung, z. B. die "
+"Befreiungsvorschrift (§14 Abs. 4 Nr. 8 UStG) oder „Steuerfreie "
+"innergemeinschaftliche Lieferung“. Bei Steuerschuldumkehr (AE) wird ohne "
+"Eintrag der gesetzliche Wortlaut „Steuerschuldnerschaft des "
+"Leistungsempfängers“ gedruckt."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_street
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_street
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_street
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Street and house number"
+msgstr "Straße und Hausnummer"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__subscription
+msgid "Subscription"
+msgstr "Abonnement"
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_tax
+msgid "Tax"
+msgstr "Steuer"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Tax \"%(tax)s\" (category %(cat)s) needs an exemption reason code or a legal"
+" note."
+msgstr ""
+"Steuer „%(tax)s“ (Kategorie %(cat)s) benötigt einen Befreiungsgrund-Code "
+"oder einen rechtlichen Hinweis."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Tax \"%(tax)s\" has %(rate)s %% but category %(cat)s - categories "
+"Z/E/AE/K/G/O must be 0 %%."
+msgstr ""
+"Steuer „%(tax)s“ hat %(rate)s %% aber Kategorie %(cat)s – die Kategorien "
+"Z/E/AE/K/G/O müssen 0 %% sein."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Tax \"%s\" is \"outside the scope of VAT\" (O). Such amounts are not VAT "
+"invoices and cannot be issued as EN 16931 e-invoices."
+msgstr ""
+"Steuer „%s“ ist „nicht steuerbar“ (O). Solche Beträge sind keine "
+"umsatzsteuerlichen Rechnungen und können nicht als EN-16931-E-Rechnung "
+"ausgestellt werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Tax \"%s\" is 0 %% but category S (standard rate)."
+msgstr "Steuer „%s“ ist 0 %% aber Kategorie S (Normalsatz)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Tax \"%s\" is zero-rated (Z) and must not carry an exemption reason (EN "
+"16931 BR-Z-10)."
+msgstr ""
+"Steuer „%s“ ist nullbesteuert (Z) und darf keinen Befreiungsgrund haben (EN "
+"16931 BR-Z-10)."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_company__fsc_tax_number
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_config_settings__fsc_tax_number
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "Tax number (Steuernummer)"
+msgstr "Steuernummer"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "Tax number:"
+msgstr "Steuernummer:"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"The EN 16931 e-invoice cannot be built:\n"
+"\n"
+"%s"
+msgstr ""
+"Die EN-16931-E-Rechnung kann nicht erstellt werden:\n"
+"\n"
+"%s"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/res_company.py:0
+#, python-format
+msgid "The legal minimum invoice retention is 8 years."
+msgstr "Die gesetzliche Mindestaufbewahrung für Rechnungen beträgt 8 Jahre."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"The member address is incomplete - add the missing %(fields)s (§14 Abs. 4 "
+"Nr. 1 UStG; only invoices up to 250 € gross may omit it, §33 UStDV)."
+msgstr ""
+"Die Anschrift des Mitglieds ist unvollständig – ergänzen Sie %(fields)s (§14"
+" Abs. 4 Nr. 1 UStG; nur Rechnungen bis 250 € brutto dürfen sie weglassen, "
+"§33 UStDV)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "The member country is missing (EN 16931 BR-11)."
+msgstr "Das Land des Mitglieds fehlt (EN 16931 BR-11)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_legal_hold_wizard.py:0
+#, python-format
+msgid "The retention period can only be extended, never shortened."
+msgstr "Die Aufbewahrungsfrist kann nur verlängert, nie verkürzt werden."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "The service period ends before it starts."
+msgstr "Der Leistungszeitraum endet vor seinem Beginn."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_gobd_export.py:0
+#, python-format
+msgid "The start date is after the end date."
+msgstr "Das Startdatum liegt nach dem Enddatum."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "This document corrects invoice %(name)s dated %(date)s."
+msgstr "Dieses Dokument berichtigt die Rechnung %(name)s vom %(date)s."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"This invoice cannot be issued yet (GoBD / §14 UStG / EN 16931):\n"
+"\n"
+"%s"
+msgstr ""
+"Diese Rechnung kann noch nicht ausgestellt werden (GoBD / §14 UStG / EN 16931):\n"
+"\n"
+"%s"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_legal_hold_wizard.py:0
+#, python-format
+msgid "This invoice has no legal hold."
+msgstr "Diese Rechnung hat keine Aufbewahrungssperre."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Total"
+msgstr "Gesamt"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Unit"
+msgstr "Einheit"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__user_id
+msgid "User"
+msgstr "Benutzer"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "VAT"
+msgstr "USt"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "VAT ID of the recipient: %s"
+msgstr "USt-IdNr. des Leistungsempfängers: %s"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "VAT ID:"
+msgstr "USt-IdNr.:"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Verify integrity"
+msgstr "Integrität prüfen"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_legal_hold_wizard
+msgid "Why? e.g. tax audit 2027, pending lawsuit, ..."
+msgstr "Warum? z. B. Betriebsprüfung 2027, laufendes Verfahren, ..."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Without a VAT ID the e-invoice needs your company register number "
+"(Handelsregister / Vereinsregister, e.g. \"HRB 12345\" or \"VR 1234\") - EN "
+"16931 BR-CO-26. Set it as Company ID in Settings → Companies, or add the VAT"
+" ID."
+msgstr ""
+"Ohne USt-IdNr. benötigt die E-Rechnung Ihre Registernummer (Handelsregister "
+"/ Vereinsregister, z. B. „HRB 12345“ oder „VR 1234“) – EN 16931 BR-CO-26. "
+"Tragen Sie sie als Unternehmens-ID unter Einstellungen → Unternehmen ein "
+"oder ergänzen Sie die USt-IdNr."
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__kind__xml
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "XML"
+msgstr "XML"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "XRechnung customers need the buyer reference / Leitweg-ID (BR-DE-15)."
+msgstr ""
+"XRechnung-Kunden benötigen die Käuferreferenz / Leitweg-ID (BR-DE-15)."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid ""
+"Years after the end of the issue year (legal minimum 8, §14b UStG / §147 "
+"AO)."
+msgstr ""
+"Jahre nach Ende des Ausstellungsjahres (gesetzliches Minimum 8, §14b UStG / "
+"§147 AO)."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Your bank account %s is not trusted yet: open it in the bank settings and "
+"click \"Send Money\" to trust it."
+msgstr ""
+"Ihr Bankkonto %s ist noch nicht vertrauenswürdig: Öffnen Sie es in den "
+"Bankeinstellungen und klicken Sie auf „Geld senden“, um ihm zu vertrauen."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Your company address is incomplete (name, street, postcode, city, country) -"
+" §14 Abs. 4 Nr. 1 UStG."
+msgstr ""
+"Die Anschrift Ihres Unternehmens ist unvollständig (Name, Straße, PLZ, Ort, "
+"Land) – §14 Abs. 4 Nr. 1 UStG."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Your company needs a VAT ID (USt-IdNr.) or a tax number (Steuernummer) - §14"
+" Abs. 4 Nr. 2 UStG. Set it in Settings → Invoicing → GoBD."
+msgstr ""
+"Ihr Unternehmen benötigt eine USt-IdNr. oder eine Steuernummer – §14 Abs. 4 "
+"Nr. 2 UStG. Tragen Sie sie unter Einstellungen → Rechnungsstellung → GoBD "
+"ein."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Your company needs a phone number on the e-invoice (BR-DE-6): Settings → "
+"Companies."
+msgstr ""
+"Ihr Unternehmen benötigt eine Telefonnummer in der E-Rechnung (BR-DE-6): "
+"Einstellungen → Unternehmen."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Your company needs an email address on the e-invoice (BR-DE-7): Settings → "
+"Companies."
+msgstr ""
+"Ihr Unternehmen benötigt eine E-Mail-Adresse in der E-Rechnung (BR-DE-7): "
+"Einstellungen → Unternehmen."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid ""
+"ZIP for the tax auditor: CSV + GDPdU index.xml + original PDF/XML + audit "
+"log."
+msgstr ""
+"ZIP für die Betriebsprüfung: CSV + GDPdU-index.xml + Original-PDF/XML + "
+"Protokoll."
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "city"
+msgstr "Ort"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "e.g. 143/123/45678"
+msgstr "z. B. 143/123/45678"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_tax_form_inherit_fsc
+msgid "e.g. Steuerfreie innergemeinschaftliche Lieferung (§ 4 Nr. 1b UStG)"
+msgstr "z. B. Steuerfreie innergemeinschaftliche Lieferung (§ 4 Nr. 1b UStG)"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "postcode"
+msgstr "PLZ"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "street"
+msgstr "Straße"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid ""
+"§14 Abs. 4 Nr. 2 UStG: your VAT ID or tax number must be on every invoice. "
+"Also written to the e-invoice (BT-32)."
+msgstr ""
+"§14 Abs. 4 Nr. 2 UStG: Ihre USt-IdNr. oder Steuernummer muss auf jeder "
+"Rechnung stehen. Wird auch in die E-Rechnung übernommen (BT-32)."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid ""
+"·\n"
+"                    retain until"
+msgstr ""
+"·\n"
+"                    aufbewahren bis"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "· Customer VAT ID:"
+msgstr "· USt-IdNr. des Kunden:"

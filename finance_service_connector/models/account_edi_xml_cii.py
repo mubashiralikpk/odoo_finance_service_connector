@@ -159,7 +159,13 @@ class AccountEdiXmlCII(models.AbstractModel):
         return tree
 
 
+UBL_CAC = 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2'
+UBL_CBC = 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2'
+UBL_NS = {'cac': UBL_CAC, 'cbc': UBL_CBC}
+
+
 class AccountEdiXmlUBLDE(models.AbstractModel):
+    """XRechnung (UBL) for B2G customers."""
     _inherit = 'account.edi.xml.ubl_de'
 
     def _export_invoice_vals(self, invoice):
@@ -167,3 +173,29 @@ class AccountEdiXmlUBLDE(models.AbstractModel):
         if invoice.move_type in ('out_invoice', 'out_refund') and invoice.fs_buyer_reference:
             vals['vals']['buyer_reference'] = invoice.fs_buyer_reference
         return vals
+
+    def _export_invoice(self, invoice):
+        xml, errors = super()._export_invoice(invoice)
+        if invoice.move_type not in ('out_invoice', 'out_refund') or not xml:
+            return xml, errors
+        tree = etree.fromstring(xml)
+        # UBL-SR-53: a PartyTaxScheme needs its CompanyID; Odoo writes an empty one
+        # for customers without a VAT ID (e.g. public authorities).
+        for scheme in tree.findall('.//cac:PartyTaxScheme', UBL_NS):
+            if not (scheme.findtext('cbc:CompanyID', namespaces=UBL_NS) or '').strip():
+                scheme.getparent().remove(scheme)
+        # BT-32 seller tax number (Steuernummer)
+        tax_number = invoice.company_id.fsc_tax_number
+        party = tree.find('cac:AccountingSupplierParty/cac:Party', UBL_NS)
+        if tax_number and party is not None:
+            scheme = etree.Element('{%s}PartyTaxScheme' % UBL_CAC)
+            etree.SubElement(scheme, '{%s}CompanyID' % UBL_CBC).text = tax_number
+            tax_scheme = etree.SubElement(scheme, '{%s}TaxScheme' % UBL_CAC)
+            etree.SubElement(tax_scheme, '{%s}ID' % UBL_CBC).text = 'FC'
+            existing = party.findall('cac:PartyTaxScheme', UBL_NS)
+            anchor = existing[-1] if existing else party.find('cac:PostalAddress', UBL_NS)
+            if anchor is not None:
+                anchor.addnext(scheme)
+            else:
+                party.append(scheme)
+        return etree.tostring(tree, xml_declaration=True, encoding='UTF-8'), errors

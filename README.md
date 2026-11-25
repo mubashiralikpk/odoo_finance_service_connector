@@ -64,8 +64,13 @@ Factur-X XML (invoice, credit note, intra-EU K, export G) passes the CEN EN 1693
 the official EN 16931 schematron ([ConnectingEurope/eInvoicing-EN16931](https://github.com/ConnectingEurope/eInvoicing-EN16931))
 with 0 errors and 0 warnings.
 
-Not covered by these tests: PDF/A validation with veraPDF and XRechnung validation with the KoSIT
-validator.
+The XRechnung (UBL) output passes the EN 16931 UBL schematron (the rules listed at
+[docs.peppol.eu](https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/)) and the KoSIT XRechnung
+schematron with 0 errors. The app ships a German translation.
+
+Not covered by these tests: PDF/A validation with veraPDF and the UBL XSD.
+
+See [docs/GOBD.md](docs/GOBD.md) for the GoBD matrix and the UStG §14 / §14a / §14b mapping.
 
 ## Limits
 

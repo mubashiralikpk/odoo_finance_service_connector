@@ -23,6 +23,7 @@ from datetime import date
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError
+from odoo.tools.translate import code_translations
 
 _logger = logging.getLogger(__name__)
 
@@ -439,8 +440,10 @@ class AccountMove(models.Model):
         # DIN 5008 info box: service date / period, member number, buyer reference
         super()._compute_l10n_din5008_template_data()
         for move in self.filtered('fsc_is_gobd_document'):
-            delivery_label = _('Delivery Date')
-            data = [row for row in (move.l10n_din5008_template_data or []) if row[0] != delivery_label]
+            lang = self.env.lang or 'en_US'
+            din_labels = code_translations.get_python_translations('l10n_din5008', lang)
+            delivery_labels = {'Delivery Date', din_labels.get('Delivery Date', 'Delivery Date')}
+            data = [row for row in (move.l10n_din5008_template_data or []) if row[0] not in delivery_labels]
             if move.delivery_date:
                 value = tools.format_date(self.env, move.delivery_date)
                 if move.fs_service_date_to:
@@ -451,6 +454,16 @@ class AccountMove(models.Model):
             if move.fs_buyer_reference:
                 data.append((_('Buyer reference'), move.fs_buyer_reference))
             move.l10n_din5008_template_data = data
+
+    def _compute_l10n_din5008_document_title(self):
+        # DIN 5008 title = the document title of the invoice; never "Gutschrift" for a correction
+        super()._compute_l10n_din5008_document_title()
+        for move in self.filtered(lambda m: m.fsc_is_gobd_document and m.state == 'posted'):
+            title = move.fs_document_title
+            if move.move_type == 'out_refund' and (not title or title == 'Gutschrift'):
+                title = 'Rechnungskorrektur' if (move.partner_id.lang or '').startswith('de') else _('Credit Note')
+            if title:
+                move.l10n_din5008_document_title = title
 
     def _fsc_service_date_label(self):
         self.ensure_one()
@@ -696,7 +709,11 @@ class AccountMove(models.Model):
             default_values_list = [{} for _move in self]
         for move, vals in zip(self, default_values_list):
             vals.setdefault('fs_invoice_type', 'CORRECTION')
-            vals.setdefault('fs_document_title', _('Credit Note'))
+            # §14 Abs. 4 Nr. 10 UStG reserves "Gutschrift" for self-billing: a correction is a
+            # "Rechnungskorrektur" (Odoo's German translation of "Credit Note" is "Gutschrift").
+            vals.setdefault('fs_document_title', 'Rechnungskorrektur'
+                            if (move.partner_id.lang or move.company_id.partner_id.lang or '').startswith('de')
+                            else _('Credit Note'))
             vals.setdefault('fs_service_type', move.fs_service_type)
             vals.setdefault('fs_buyer_reference', move.fs_buyer_reference)
             vals.setdefault('delivery_date', move.delivery_date)
