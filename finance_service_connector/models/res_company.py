@@ -2,6 +2,10 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 # Odoo l10n_de (SKR03 / SKR04) sales taxes whose meaning is unambiguous.
 # Everything else (exempt §4 Nr. 8-28, §19 small business, not taxable, ...)
 # needs the company's own decision and stays blocked until it is set.
@@ -33,6 +37,20 @@ class ResCompany(models.Model):
         for company in self:
             if company.fsc_retention_years < 8:
                 raise ValidationError(_('The legal minimum invoice retention is 8 years.'))
+
+    def _fsc_ensure_german_chart(self):
+        """German E-Invoice works with the German chart: SKR03 brings EUR and the
+        19 %, 7 % and 0 % sales taxes. Only for companies without any accounting
+        entry yet (Odoo cannot switch the chart afterwards)."""
+        for company in self:
+            if company.chart_template in ('de_skr03', 'de_skr04'):
+                continue
+            if company.country_id and company.country_id.code != 'DE':
+                continue  # a non-German company keeps its own localisation
+            if company._existing_accounting():
+                _logger.info('GoBD: %s already has accounting entries; chart not changed.', company.name)
+                continue
+            self.env['account.chart.template'].try_loading('de_skr03', company, install_demo=True)  # demo only if the database has demo data
 
     def _fsc_apply_gobd_defaults(self):
         """Audit trail on, sales journals hash-locked, unambiguous German 0 % taxes
