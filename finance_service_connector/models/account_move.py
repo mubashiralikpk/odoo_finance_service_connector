@@ -22,6 +22,7 @@ import logging
 from datetime import date
 
 from odoo import _, api, fields, models, tools
+from odoo.osv import expression
 from odoo.exceptions import UserError
 from odoo.tools.translate import code_translations
 
@@ -74,6 +75,19 @@ STATUTORY_NOTE = {
 }
 
 DEFAULT_TITLES = {'Invoice', 'Rechnung', 'Credit Note', 'Gutschrift', 'Rechnungskorrektur'}
+CANCEL_TITLES = {'Cancellation invoice', 'Stornorechnung'}
+
+# Lifecycle status shown on customer invoices (same states as the Pitstop CRM)
+FSC_STATUS = [
+    ('draft', 'Draft'),
+    ('open', 'Open'),
+    ('sent', 'Sent'),
+    ('partial', 'Partially paid'),
+    ('overdue', 'Overdue'),
+    ('paid', 'Paid'),
+    ('cancelled', 'Cancelled'),
+    ('storno', 'Cancellation invoice'),
+]
 
 # Content that is printed on the invoice / written to the XML. Locked once issued.
 FSC_LOCKED_FIELDS = {
@@ -160,6 +174,14 @@ class AccountMove(models.Model):
     fsc_compliance_issues = fields.Text(
         string='Missing for issue', compute='_compute_fsc_compliance_issues')
     fsc_legal_statements = fields.Text(compute='_compute_fsc_legal_statements')
+    fsc_status = fields.Selection(
+        FSC_STATUS, string='Invoice status', compute='_compute_fsc_status', search='_search_fsc_status',
+        help='Draft: not issued yet. Open: issued, not sent. Sent: sent to the member. '
+             'Partially paid / Paid: payments received. Overdue: due date passed, not paid. '
+             'Cancelled: cancelled with a cancellation invoice (Storno) or a draft that was cancelled.')
+    fsc_cancellation_id = fields.Many2one(
+        'account.move', string='Cancelled by', compute='_compute_fsc_status',
+        help='The cancellation invoice (Stornorechnung) that cancelled this invoice.')
     fsc_customer_type = fields.Selection([
         ('b2b', 'Business (B2B)'),
         ('b2c', 'Private (B2C)'),
@@ -223,6 +245,58 @@ class AccountMove(models.Model):
                 continue
             issues = move._fsc_compliance_issues()
             move.fsc_compliance_issues = '\n'.join(f'• {msg}' for msg in issues) or False
+
+    @api.depends('state', 'payment_state', 'is_move_sent', 'invoice_date_due', 'move_type', 'fs_document_title',
+                 'reversal_move_id.state', 'reversal_move_id.fs_document_title')
+    def _compute_fsc_status(self):
+        today = fields.Date.context_today(self)
+        for move in self:
+            cancellation = move.reversal_move_id.filtered(
+                lambda r: r.state == 'posted' and (r.fs_document_title or '') in CANCEL_TITLES)[:1]
+            move.fsc_cancellation_id = cancellation
+            if (move.move_type == 'out_refund' and move.state == 'posted'
+                    and (move.fs_document_title or '') in CANCEL_TITLES):
+                move.fsc_status = 'storno'
+            elif move.state == 'cancel' or move.payment_state == 'reversed' or cancellation:
+                move.fsc_status = 'cancelled'
+            elif move.state == 'draft':
+                move.fsc_status = 'draft'
+            elif move.payment_state in ('paid', 'in_payment'):
+                move.fsc_status = 'paid'
+            elif (move.move_type == 'out_invoice' and move.invoice_date_due and move.invoice_date_due < today
+                  and move.payment_state in ('not_paid', 'partial')):
+                move.fsc_status = 'overdue'
+            elif move.payment_state == 'partial':
+                move.fsc_status = 'partial'
+            elif move.is_move_sent:
+                move.fsc_status = 'sent'
+            else:
+                move.fsc_status = 'open'
+
+    def _search_fsc_status(self, operator, value):
+        if operator not in ('=', '!=', 'in', 'not in'):
+            raise UserError(_('Unsupported search on the invoice status.'))
+        values = [value] if isinstance(value, str) else list(value or [])
+        today = fields.Date.context_today(self)
+        storno = [('move_type', '=', 'out_refund'), ('state', '=', 'posted'),
+                  ('fs_document_title', 'in', list(CANCEL_TITLES))]
+        posted = [('state', '=', 'posted'), ('payment_state', '!=', 'reversed')] + ['!'] + expression.normalize_domain(storno)
+        overdue = [('move_type', '=', 'out_invoice'), ('invoice_date_due', '<', today),
+                   ('payment_state', 'in', ('not_paid', 'partial'))]
+        not_overdue = ['|', '|', ('move_type', '!=', 'out_invoice'), ('invoice_date_due', '=', False),
+                       ('invoice_date_due', '>=', today)]
+        domains = {
+            'draft': [('state', '=', 'draft')],
+            'storno': storno,
+            'cancelled': ['|', ('state', '=', 'cancel'), ('payment_state', '=', 'reversed')],
+            'paid': posted + [('payment_state', 'in', ('paid', 'in_payment'))],
+            'overdue': posted + overdue,
+            'partial': posted + [('payment_state', '=', 'partial')] + not_overdue,
+            'sent': posted + [('payment_state', '=', 'not_paid'), ('is_move_sent', '=', True)] + not_overdue,
+            'open': posted + [('payment_state', '=', 'not_paid'), ('is_move_sent', '=', False)] + not_overdue,
+        }
+        domain = expression.OR([domains[v] for v in values if v in domains]) or [('id', '=', 0)]
+        return ['!'] + expression.normalize_domain(domain) if operator in ('!=', 'not in') else domain
 
     @api.depends('partner_id.commercial_partner_id.is_company')
     def _compute_fsc_customer_type(self):
@@ -452,7 +526,12 @@ class AccountMove(models.Model):
                     lines.append(_('VAT ID of the recipient: %s', self.partner_id.commercial_partner_id.vat))
                 if cat == 'G' and self.fsc_export_evidence_ref:
                     lines.append(_('Export evidence: %s', self.fsc_export_evidence_ref))
-        if self.move_type == 'out_refund' and self.reversed_entry_id:
+        if self.move_type == 'out_refund' and self.reversed_entry_id and (self.fs_document_title or '') in CANCEL_TITLES:
+            original = self.reversed_entry_id
+            lines.append(_('This document cancels invoice %(name)s dated %(date)s in full.',
+                           name=original.name,
+                           date=tools.format_date(self.env, original.invoice_date)))
+        elif self.move_type == 'out_refund' and self.reversed_entry_id:
             original = self.reversed_entry_id
             lines.append(_('This document corrects invoice %(name)s dated %(date)s.',
                            name=original.name,
@@ -491,6 +570,8 @@ class AccountMove(models.Model):
         (§14 Abs. 4 Nr. 10 UStG reserves it for self-billing)."""
         self.ensure_one()
         title = (self.fs_document_title or '').strip()
+        if title in CANCEL_TITLES:
+            return _('Cancellation invoice')
         if title and title not in DEFAULT_TITLES:
             return title
         return _('Credit Note') if self.move_type == 'out_refund' else _('Invoice')
@@ -746,6 +827,21 @@ class AccountMove(models.Model):
             vals.setdefault('delivery_date', move.delivery_date)
             vals.setdefault('fs_service_date_to', move.fs_service_date_to)
         return super()._reverse_moves(default_values_list=default_values_list, cancel=cancel)
+
+    def action_fsc_cancel(self):
+        """Cancel an invoice. A draft is simply cancelled; an issued invoice can only be
+        cancelled with a cancellation invoice (Stornorechnung) - GoBD: never deleted or changed."""
+        self.ensure_one()
+        if self.state == 'draft' or not self.fsc_issued_at:
+            return self.button_cancel()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Cancel invoice'),
+            'res_model': 'fsc.cancel.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_move_id': self.id},
+        }
 
     def _invoice_paid_hook(self):
         result = super()._invoice_paid_hook()

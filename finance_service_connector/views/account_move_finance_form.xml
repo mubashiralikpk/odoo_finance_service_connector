@@ -12,7 +12,7 @@
         <field name="priority">30</field>
         <field name="arch" type="xml">
 
-            <!-- ── Invoice type picker (top of the sheet) ───────────────── -->
+            <!-- ── Banners (top of the sheet) ───────────────────────────── -->
             <xpath expr="//sheet" position="before">
                 <div class="alert alert-warning mb-0 o_fsc_compliance" role="alert"
                      invisible="not fsc_compliance_issues or state != 'draft' or not fsc_is_gobd_document">
@@ -27,12 +27,19 @@
                     <span invisible="not fsc_legal_hold" class="badge text-bg-danger ms-2">Legal hold</span>
                 </div>
             </xpath>
+            <!-- status of the invoice (draft, open, sent, partially paid, overdue, paid, cancelled) -->
             <xpath expr="//div[hasclass('oe_title')]" position="before">
-                <div class="o_fs_invoice_type mb-3"
-                     invisible="move_type not in ('out_invoice', 'out_refund')">
-                    <div class="o_fs_section_label">Invoice type</div>
-                    <field name="fs_invoice_type" widget="selection_badge" nolabel="1"
-                           readonly="state != 'draft'"/>
+                <div class="mb-2" invisible="move_type not in ('out_invoice', 'out_refund')">
+                    <field name="fsc_status" widget="badge" nolabel="1"
+                           decoration-muted="fsc_status == 'draft'"
+                           decoration-info="fsc_status in ('open', 'sent')"
+                           decoration-warning="fsc_status == 'partial'"
+                           decoration-danger="fsc_status in ('overdue', 'cancelled')"
+                           decoration-primary="fsc_status == 'storno'"
+                           decoration-success="fsc_status == 'paid'"/>
+                    <span invisible="not fsc_cancellation_id" class="ms-2 text-muted">
+                        Cancelled by <field name="fsc_cancellation_id" class="d-inline" readonly="1"/>
+                    </span>
                 </div>
             </xpath>
 

@@ -5,3 +5,4 @@ access_fsc_invoice_archive_user,fsc.invoice.archive user,model_fsc_invoice_archi
 access_fsc_invoice_archive_readonly,fsc.invoice.archive readonly,model_fsc_invoice_archive,account.group_account_readonly,1,0,0,0
 access_fsc_legal_hold_wizard_manager,fsc.legal.hold.wizard manager,model_fsc_legal_hold_wizard,account.group_account_manager,1,1,1,0
 access_fsc_gobd_export_manager,fsc.gobd.export manager,model_fsc_gobd_export,account.group_account_manager,1,1,1,0
+access_fsc_cancel_wizard_user,fsc.cancel.wizard user,model_fsc_cancel_wizard,account.group_account_invoice,1,1,1,0

@@ -131,6 +131,32 @@
         </field>
     </record>
 
+    <!-- Cancel (Storno) wizard -->
+    <record id="view_fsc_cancel_wizard" model="ir.ui.view">
+        <field name="name">fsc.cancel.wizard.form</field>
+        <field name="model">fsc.cancel.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <p>
+                    An issued invoice is never deleted or changed (GoBD). It is cancelled with a
+                    <strong>cancellation invoice (Stornorechnung)</strong> for the full amount, which is issued,
+                    archived and linked to it. The invoice then shows the status <strong>Cancelled</strong>.
+                </p>
+                <group>
+                    <field name="move_id"/>
+                    <field name="amount_total"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="date"/>
+                    <field name="reason" placeholder="Why? e.g. wrong member, duplicate invoice, event cancelled ..."/>
+                </group>
+                <footer>
+                    <button name="action_cancel" type="object" string="Issue cancellation invoice" class="btn-danger"/>
+                    <button special="cancel" string="Discard"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <!-- GoBD export wizard -->
     <record id="view_fsc_gobd_export" model="ir.ui.view">
         <field name="name">fsc.gobd.export.form</field>
