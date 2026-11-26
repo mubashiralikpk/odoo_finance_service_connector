@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 11:30+0000\n"
-"PO-Revision-Date: 2026-11-25 11:30+0000\n"
+"POT-Creation-Date: 2026-11-26 12:09+0000\n"
+"PO-Revision-Date: 2026-11-26 12:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -215,6 +215,17 @@ msgid "Audit log"
 msgstr "Protokoll"
 
 #. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid "B2B: require customer VAT ID"
+msgstr "B2B: USt-IdNr. des Kunden erforderlich"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_company__fsc_b2b_require_vat
+#: model:ir.model.fields,field_description:finance_service_connector.field_res_config_settings__fsc_b2b_require_vat
+msgid "B2B: require the customer VAT ID"
+msgstr "B2B: USt-IdNr. des Kunden erforderlich"
+
+#. module: finance_service_connector
 #: model:ir.model,name:finance_service_connector.model_account_edi_xml_ubl_de
 msgid "BIS3 DE (XRechnung)"
 msgstr "BIS3 DE (XRechnung)"
@@ -229,6 +240,36 @@ msgstr "Vorher"
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__retention_class__ao_147_books
 msgid "Books / annual accounts (§147 AO) - 10 years"
 msgstr "Bücher / Jahresabschlüsse (§147 AO) – 10 Jahre"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_customer_type__b2b
+msgid "Business (B2B)"
+msgstr "Geschäftskunde (B2B)"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"Business customer (B2B): add the member's VAT ID (USt-IdNr.) on the contact."
+" For a private person (B2C), set the contact to \"Individual\" instead."
+msgstr ""
+"Geschäftskunde (B2B): Tragen Sie die USt-IdNr. des Mitglieds am Kontakt ein."
+" Für eine Privatperson (B2C) stellen Sie den Kontakt stattdessen auf "
+"„Einzelperson“."
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
+msgid ""
+"Business customers (contact type Company) in the EU need a VAT ID before an "
+"invoice can be issued. Private customers (Individual, B2C) and businesses "
+"outside the EU never need one. Reverse charge and intra-EU supplies always "
+"need it."
+msgstr ""
+"Geschäftskunden (Kontaktart Unternehmen) in der EU benötigen eine USt-IdNr.,"
+" bevor eine Rechnung ausgestellt werden kann. Privatkunden (Einzelperson, "
+"B2C) und Unternehmen außerhalb der EU benötigen nie eine. Reverse-Charge und"
+" innergemeinschaftliche Lieferungen benötigen sie immer."
 
 #. module: finance_service_connector
 #. odoo-python
@@ -364,6 +405,13 @@ msgstr "Rechnungskorrektur"
 #: model:ir.model.fields,field_description:finance_service_connector.field_res_config_settings__fsc_hash_lock_active
 msgid "Customer invoices locked with hash"
 msgstr "Ausgangsrechnungen mit Hash gesperrt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_customer_type
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_customer_type
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_customer_type
+msgid "Customer type"
+msgstr "Kundenart"
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_gobd_export
@@ -583,6 +631,17 @@ msgid ""
 msgstr ""
 "Bei XRechnung-Kunden stammt die Adresse aus dem Kundenstamm. Bearbeiten Sie "
 "den Kunden statt dieser Rechnung."
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_account_bank_statement_line__fsc_customer_type
+#: model:ir.model.fields,help:finance_service_connector.field_account_move__fsc_customer_type
+#: model:ir.model.fields,help:finance_service_connector.field_account_payment__fsc_customer_type
+msgid ""
+"From the member contact: \"Company\" = business customer (B2B), "
+"\"Individual\" = private customer (B2C). Change it on the contact."
+msgstr ""
+"Aus dem Mitgliedskontakt: „Unternehmen“ = Geschäftskunde (B2B), "
+"„Einzelperson“ = Privatkunde (B2C). Änderung am Kontakt."
 
 #. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_is_gobd_document
@@ -852,6 +911,19 @@ msgstr "Aufbewahrung von Rechnungen (Jahre)"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Invoice type"
 msgstr "Rechnungsart"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_res_company__fsc_b2b_require_vat
+#: model:ir.model.fields,help:finance_service_connector.field_res_config_settings__fsc_b2b_require_vat
+msgid ""
+"Invoices to business customers (contact type \"Company\") in the EU can only"
+" be issued when the customer has a VAT ID. Private customers (contact type "
+"\"Individual\", B2C) and businesses outside the EU never need one."
+msgstr ""
+"Rechnungen an Geschäftskunden (Kontaktart „Unternehmen“) in der EU können "
+"nur ausgestellt werden, wenn der Kunde eine USt-IdNr. hat. Privatkunden "
+"(Kontaktart „Einzelperson“, B2C) und Unternehmen außerhalb der EU benötigen "
+"nie eine."
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
@@ -1188,6 +1260,11 @@ msgid ""
 msgstr ""
 "Wird auf Rechnungen gedruckt und in die E-Rechnung (BT-32) übernommen. §14 "
 "Abs. 4 Nr. 2 UStG verlangt die USt-IdNr. oder die Steuernummer."
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_customer_type__b2c
+msgid "Private (B2C)"
+msgstr "Privatkunde (B2C)"
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_audit_event_search

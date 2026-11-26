@@ -45,7 +45,12 @@
                 <attribute name="context">{
                     'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False,
                     'show_address': context.get('default_move_type', 'entry') not in ('out_invoice', 'out_refund'),
-                    'default_is_company': True, 'show_vat': True}</attribute>
+                    'show_vat': True}</attribute>
+            </xpath>
+            <xpath expr="//group[@id='header_left_group']//field[@name='partner_id']" position="after">
+                <field name="fsc_customer_type" widget="badge" readonly="1"
+                       decoration-info="fsc_customer_type == 'b2b'" decoration-muted="fsc_customer_type == 'b2c'"
+                       invisible="move_type not in ('out_invoice', 'out_refund') or not partner_id"/>
             </xpath>
             <xpath expr="//group[@id='header_left_group']/field[@name='partner_shipping_id']" position="before">
                 <field name="fs_rcpt_street2" placeholder="Address supplement (optional)"

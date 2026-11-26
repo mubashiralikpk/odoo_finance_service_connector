@@ -7,6 +7,7 @@ class ResConfigSettings(models.TransientModel):
 
     fsc_tax_number = fields.Char(related='company_id.fsc_tax_number', readonly=False)
     fsc_retention_years = fields.Integer(related='company_id.fsc_retention_years', readonly=False)
+    fsc_b2b_require_vat = fields.Boolean(related='company_id.fsc_b2b_require_vat', readonly=False)
     fsc_hash_lock_active = fields.Boolean(
         string='Customer invoices locked with hash', compute='_compute_fsc_hash_lock_active')
 

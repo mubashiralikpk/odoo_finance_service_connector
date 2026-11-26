@@ -12,6 +12,10 @@
                              help="§14 Abs. 4 Nr. 2 UStG: your VAT ID or tax number must be on every invoice. Also written to the e-invoice (BT-32).">
                         <field name="fsc_tax_number" placeholder="e.g. 143/123/45678"/>
                     </setting>
+                    <setting string="B2B: require customer VAT ID"
+                             help="Business customers (contact type Company) in the EU need a VAT ID before an invoice can be issued. Private customers (Individual, B2C) and businesses outside the EU never need one. Reverse charge and intra-EU supplies always need it.">
+                        <field name="fsc_b2b_require_vat"/>
+                    </setting>
                     <setting string="Invoice retention"
                              help="Years after the end of the issue year (legal minimum 8, §14b UStG / §147 AO).">
                         <field name="fsc_retention_years"/>

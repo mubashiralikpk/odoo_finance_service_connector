@@ -160,6 +160,12 @@ class AccountMove(models.Model):
     fsc_compliance_issues = fields.Text(
         string='Missing for issue', compute='_compute_fsc_compliance_issues')
     fsc_legal_statements = fields.Text(compute='_compute_fsc_legal_statements')
+    fsc_customer_type = fields.Selection([
+        ('b2b', 'Business (B2B)'),
+        ('b2c', 'Private (B2C)'),
+    ], string='Customer type', compute='_compute_fsc_customer_type',
+        help='From the member contact: "Company" = business customer (B2B), '
+             '"Individual" = private customer (B2C). Change it on the contact.')
 
     # ─────────────────────────────────────────────────────────────────────────
     # Defaults / computes
@@ -207,7 +213,9 @@ class AccountMove(models.Model):
                  'fs_rcpt_street', 'fs_rcpt_zip', 'fs_rcpt_city', 'fs_rcpt_country_id',
                  'fs_service_type', 'delivery_date', 'fs_service_date_to',
                  'fs_invoice_type', 'fs_buyer_reference', 'fsc_export_evidence_ref',
-                 'partner_bank_id', 'amount_total', 'reversed_entry_id')
+                 'partner_bank_id', 'amount_total', 'reversed_entry_id',
+                 'partner_id.commercial_partner_id.is_company', 'partner_id.commercial_partner_id.vat',
+                 'company_id.fsc_b2b_require_vat')
     def _compute_fsc_compliance_issues(self):
         for move in self:
             if move.state != 'draft' or not move.fsc_is_gobd_document:
@@ -215,6 +223,12 @@ class AccountMove(models.Model):
                 continue
             issues = move._fsc_compliance_issues()
             move.fsc_compliance_issues = '\n'.join(f'• {msg}' for msg in issues) or False
+
+    @api.depends('partner_id.commercial_partner_id.is_company')
+    def _compute_fsc_customer_type(self):
+        for move in self:
+            partner = move.partner_id.commercial_partner_id
+            move.fsc_customer_type = (partner.is_company and 'b2b' or 'b2c') if partner else False
 
     @api.depends('invoice_line_ids.tax_ids', 'reversed_entry_id', 'partner_id.vat')
     def _compute_fsc_legal_statements(self):
@@ -362,6 +376,13 @@ class AccountMove(models.Model):
                                 'invoices and cannot be issued as EN 16931 e-invoices.', tax.name))
 
         eu = self._fsc_eu_country_codes()
+        # B2B: business customers need their VAT ID on the invoice (company setting, on by default).
+        # B2C: private customers have no VAT ID and need none.
+        # Only for customers in the EU: businesses outside the EU (exports) have no EU VAT ID.
+        if (buyer and commercial.is_company and company.fsc_b2b_require_vat and not commercial.vat
+                and country and country.code in eu and not categories & BUYER_VAT_REQUIRED):
+            issues.append(_('Business customer (B2B): add the member\'s VAT ID (USt-IdNr.) on the contact. '
+                            'For a private person (B2C), set the contact to "Individual" instead.'))
         if categories & BUYER_VAT_REQUIRED and not commercial.vat:
             issues.append(_('Reverse charge / intra-EU supply needs the member\'s VAT ID (USt-IdNr.).'))
         if categories & SELLER_VAT_REQUIRED and not company.vat:

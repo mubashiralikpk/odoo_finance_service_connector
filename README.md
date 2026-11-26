@@ -68,6 +68,15 @@ The XRechnung (UBL) output passes the EN 16931 UBL schematron (the rules listed 
 [docs.peppol.eu](https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/)) and the KoSIT XRechnung
 schematron with 0 errors.
 
+## B2B and B2C
+
+The member contact decides the customer type: **Company** = business customer (B2B),
+**Individual** = private customer (B2C); the invoice form shows it next to the member.
+B2B invoices to customers in the EU need the customer's VAT ID (USt-IdNr.) before they can be
+issued (Settings → Invoicing → GoBD → "B2B: require customer VAT ID", on by default). B2C invoices
+never need one. Reverse charge (AE) and intra-EU supplies (K) always need it; exports to businesses
+outside the EU do not.
+
 ## Languages
 
 The app is fully translated into **English (US)** and **German**. Each user sees the app in the

@@ -30,6 +30,11 @@ class ResCompany(models.Model):
         string='Invoice retention (years)', default=8,
         help='Counted from the end of the issue year. The legal minimum is 8 years '
              '(§14b UStG, §147 AO).')
+    fsc_b2b_require_vat = fields.Boolean(
+        string='B2B: require the customer VAT ID', default=True,
+        help='Invoices to business customers (contact type "Company") in the EU can only be issued when '
+             'the customer has a VAT ID. Private customers (contact type "Individual", B2C) and businesses '
+             'outside the EU never need one.')
     check_account_audit_trail = fields.Boolean(default=True)
 
     @api.constrains('fsc_retention_years')
