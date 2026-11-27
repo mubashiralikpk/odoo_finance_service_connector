@@ -194,8 +194,10 @@ class AccountMove(models.Model):
              'The issued original stays unchanged in the GoBD archive.')
     fsc_view_pdf_kind = fields.Char(readonly=True, copy=False)
     # one stamped copy per stamp, created once (the German audit trail forbids deleting invoice PDFs)
-    fsc_paid_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)
-    fsc_cancelled_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)
+    fsc_paid_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)       # 17.0.2.3.0 copies
+    fsc_cancelled_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)  # 17.0.2.3.0 copies
+    fsc_version_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)    # document versions
+    fsc_version_count = fields.Integer(string='Document versions', compute='_compute_fsc_version_count')
     fsc_customer_type = fields.Selection([
         ('b2b', 'Business (B2B)'),
         ('b2c', 'Private (B2C)'),
@@ -883,35 +885,65 @@ class AccountMove(models.Model):
         lang = self.partner_id.lang or self.env.lang or 'en_US'
         return stamp_pdf(pdf_bytes, kind, lang)
 
-    def _fsc_sync_view_pdf(self):
-        """Keep the shown / sent PDF in line with the status: a paid or cancelled invoice uses a copy
-        with the BEZAHLT / STORNIERT stamp, otherwise the issued original. The original stays
-        unchanged in the GoBD archive; each stamped copy is created once and reused."""
+    @api.depends('fsc_archive_ids')
+    def _compute_fsc_version_count(self):
+        for move in self:
+            move.fsc_version_count = len(move.fsc_archive_ids.filtered(lambda a: a.kind == 'pdf'))
+
+    def _fsc_sync_view_pdf(self, trigger=None):
+        """Document versions, as in the Pitstop CRM (append-only artifacts):
+        v1 = issued original (PDF/A-3 + XML, never changed). When the invoice becomes paid or
+        cancelled, a new version with the BEZAHLT / STORNIERT stamp is created and archived with
+        its SHA-256; when the status changes again, that version is marked "superseded" (kept, not
+        deleted) and a new one is created. The active version is shown in the preview and sent."""
         labels = {('paid', 'de'): 'Bezahlt', ('paid', 'en'): 'Paid',
                   ('cancelled', 'de'): 'Storniert', ('cancelled', 'en'): 'Cancelled'}
         Attachment = self.env['ir.attachment'].sudo()
+        Archive = self.env['fsc.invoice.archive'].sudo()
         for move in self.filtered(lambda m: m.fsc_is_gobd_document and m.state == 'posted'
                                   and m.move_type in ('out_invoice', 'out_refund')):
             move = move.sudo().with_context(fsc_system_write=True)
             kind = move._fsc_stamp_kind()
             kind = kind if kind in ('paid', 'cancelled') else False
-            original = move.invoice_pdf_report_id or move.fsc_archive_ids.filtered(lambda a: a.kind == 'pdf')[:1].attachment_id
-            copy = Attachment
-            if kind and original:
-                field = f'fsc_{kind}_pdf_file'
-                domain = [('res_model', '=', 'account.move'), ('res_id', '=', move.id), ('res_field', '=', field)]
-                copy = Attachment.search(domain, limit=1)
-                if not copy:
-                    move.write({field: base64.b64encode(move._fsc_stamped_pdf(original.raw))})
-                    copy = Attachment.search(domain, limit=1)
+            versions = move.fsc_archive_ids.filtered(lambda a: a.kind == 'pdf')
+            original_row = versions.filtered(lambda a: a.stamp == 'issued')[:1]
+            original = original_row.attachment_id or move.invoice_pdf_report_id
+            active_copy = versions.filtered(lambda a: a.stamp != 'issued' and a.state == 'active')
+            if kind and active_copy.filtered(lambda a: a.stamp == kind):
+                target = active_copy.filtered(lambda a: a.stamp == kind)[:1].attachment_id
+            else:
+                if active_copy:
+                    active_copy.write({'state': 'superseded', 'superseded_at': fields.Datetime.now()})
+                    for row in active_copy:
+                        move._fsc_log('version_superseded', reason=trigger or _('Status changed'),
+                                      old={'version': row.version, 'stamp': row.stamp, 'sha256': row.sha256},
+                                      new={'status': move.fsc_status})
+                target = original
+                if kind and original:
                     lang = 'de' if (move.partner_id.lang or '').startswith('de') else 'en'
                     base = (original.name or move._get_invoice_report_filename()).rsplit('.pdf', 1)[0]
-                    copy.write({'name': f'{base} ({labels[(kind, lang)]}).pdf', 'mimetype': 'application/pdf'})
-            target = copy or original
-            if move.fsc_view_pdf_id != copy or (move.fsc_view_pdf_kind or False) != (kind or False) \
-                    or (target and move.message_main_attachment_id != target):
+                    version = max(versions.mapped('version') or [1]) + 1
+                    target = Attachment.create({
+                        'name': f'{base} ({labels[(kind, lang)]}) v{version}.pdf',
+                        'raw': move._fsc_stamped_pdf(original.raw),
+                        'mimetype': 'application/pdf',
+                        'res_model': 'account.move',
+                        'res_id': move.id,
+                        'res_field': 'fsc_version_pdf_file',
+                    })
+                    row = Archive.create({
+                        'move_id': move.id, 'kind': 'pdf', 'attachment_id': target.id,
+                        'standard': original_row.standard or 'PDF/A-3 + Factur-X (copy with status stamp)',
+                        'version': version, 'stamp': kind, 'state': 'active',
+                        'trigger': trigger or (_('Paid') if kind == 'paid' else _('Cancelled by %s', move.fsc_cancellation_id.name or '')),
+                    })
+                    move._fsc_log('version_created', reason=row.trigger,
+                                  new={'version': version, 'stamp': kind, 'file': target.name, 'sha256': row.sha256})
+            if move.fsc_view_pdf_id != (target if target != original else Attachment) or \
+                    (move.fsc_view_pdf_kind or False) != (kind or False) or \
+                    (target and move.message_main_attachment_id != target):
                 move.write({
-                    'fsc_view_pdf_id': copy.id or False,
+                    'fsc_view_pdf_id': target.id if target and target != original else False,
                     'fsc_view_pdf_kind': kind or False,
                     'message_main_attachment_id': target.id or False,
                 })

@@ -149,7 +149,7 @@ class FscGobdExport(models.TransientModel):
         archives = moves.fsc_archive_ids
         write_csv('dokumente.csv', [[
             a.id, a.move_id.id, a.move_id.name, a.kind, a.standard or '',
-            f'documents/{a.move_id.id}_{a.filename}', a.sha256,
+            f'documents/{a.move_id.id}_v{a.version}_{a.filename}', a.sha256,
             fields.Datetime.to_string(a.archived_at), 'ja' if a.last_check_ok else 'nein',
         ] for a in archives])
 
@@ -163,7 +163,7 @@ class FscGobdExport(models.TransientModel):
 
         if self.include_documents:
             for archive in archives:
-                files[f'documents/{archive.move_id.id}_{archive.filename}'] = archive.attachment_id.raw or b''
+                files[f'documents/{archive.move_id.id}_v{archive.version}_{archive.filename}'] = archive.attachment_id.raw or b''
 
         files['index.xml'] = self._gdpdu_index().encode('utf-8')
         files['data-dictionary.json'] = json.dumps(DATA_DICTIONARY, indent=2, ensure_ascii=False).encode('utf-8')

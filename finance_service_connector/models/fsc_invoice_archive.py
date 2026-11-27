@@ -1,6 +1,16 @@
 # -*- coding: utf-8 -*-
-"""Archived original invoice documents with SHA-256 (Unveränderbarkeit)."""
+"""Archived invoice documents and their versions with SHA-256 (Unveränderbarkeit).
+
+Like the Pitstop CRM's einvoice_artifacts: append-only. Version 1 is the issued original
+(PDF/A-3 + XML). Every later status copy (BEZAHLT / STORNIERT stamp) is a new version;
+an outdated copy is marked "superseded", never changed or deleted."""
 import hashlib
+import io
+import logging
+
+from odoo.tools.pdf import OdooPdfFileReader
+
+_logger = logging.getLogger(__name__)
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -9,7 +19,7 @@ from odoo.exceptions import UserError
 class FscInvoiceArchive(models.Model):
     _name = 'fsc.invoice.archive'
     _description = 'GoBD archived invoice document'
-    _order = 'id'
+    _order = 'move_id, version, id'
     _rec_name = 'filename'
 
     move_id = fields.Many2one('account.move', string='Invoice', required=True, readonly=True,
@@ -27,12 +37,27 @@ class FscInvoiceArchive(models.Model):
     last_check_at = fields.Datetime(string='Last integrity check', readonly=True)
     last_check_ok = fields.Boolean(string='Integrity OK', readonly=True)
     retention_until = fields.Date(related='move_id.fsc_retention_until')
+    version = fields.Integer(readonly=True, default=1, group_operator=False)
+    stamp = fields.Selection([
+        ('issued', 'Issued original'),
+        ('paid', 'Paid (BEZAHLT)'),
+        ('cancelled', 'Cancelled (STORNIERT)'),
+    ], string='Version type', readonly=True, default='issued', required=True)
+    state = fields.Selection([
+        ('active', 'Active'),
+        ('superseded', 'Superseded'),
+    ], readonly=True, default='active', required=True)
+    superseded_at = fields.Datetime(readonly=True)
+    trigger = fields.Char(string='Reason', readonly=True)
+    xml_sha256 = fields.Char(string='Embedded XML SHA-256', readonly=True,
+                             help='SHA-256 of the e-invoice XML inside the PDF: the same in every version.')
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             attachment = self.env['ir.attachment'].sudo().browse(vals['attachment_id'])
             raw = attachment.raw or b''
+            vals.setdefault('xml_sha256', self._fsc_embedded_xml_sha(raw) if vals.get('kind') == 'pdf' else False)
             vals.update({
                 'filename': attachment.name,
                 'mimetype': attachment.mimetype,
@@ -44,9 +69,25 @@ class FscInvoiceArchive(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
-        if not set(vals) <= {'last_check_at', 'last_check_ok'}:
+        allowed = {'last_check_at', 'last_check_ok'}
+        if vals.get('state') == 'superseded':      # the only lifecycle change: active -> superseded
+            allowed |= {'state', 'superseded_at'}
+            if self.filtered(lambda a: a.stamp == 'issued'):
+                raise UserError(_('GoBD: the issued original is never superseded.'))
+        if not set(vals) <= allowed:
             raise UserError(_('GoBD: archived documents cannot be changed.'))
         return super().write(vals)
+
+    @api.model
+    def _fsc_embedded_xml_sha(self, raw):
+        try:
+            reader = OdooPdfFileReader(io.BytesIO(raw), strict=False)
+            for name, content in reader.getAttachments():
+                if name.lower().endswith('.xml'):
+                    return hashlib.sha256(content).hexdigest()
+        except Exception:  # noqa: BLE001
+            _logger.debug('no embedded XML found', exc_info=True)
+        return False
 
     def unlink(self):
         raise UserError(_('GoBD: archived documents cannot be deleted.'))

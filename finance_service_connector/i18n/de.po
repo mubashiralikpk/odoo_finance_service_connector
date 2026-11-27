@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-27 11:47+0000\n"
-"PO-Revision-Date: 2026-11-27 11:47+0000\n"
+"POT-Creation-Date: 2026-11-27 11:59+0000\n"
+"PO-Revision-Date: 2026-11-27 11:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -123,6 +123,12 @@ msgid "Action"
 msgstr "Aktion"
 
 #. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__state__active
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: finance_service_connector
 #. odoo-python
 #: code:addons/finance_service_connector/models/account_move.py:0
 #, python-format
@@ -192,6 +198,15 @@ msgstr ""
 "                    archiviert und mit ihr verknüpft wird. Die Rechnung hat danach den Status <strong>Storniert</strong>."
 
 #. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid ""
+"Append-only: v1 is the issued original (PDF/A-3 + XML). Paid / cancelled copies with the stamp are\n"
+"                        new versions; outdated ones are marked superseded and kept. Nothing is changed or deleted."
+msgstr ""
+"Nur anfügend: v1 ist das ausgestellte Original (PDF/A-3 + XML). Bezahlt-/Storniert-Kopien mit Stempel sind\n"
+"                        neue Versionen; veraltete werden als ersetzt markiert und bleiben erhalten. Nichts wird geändert oder gelöscht."
+
+#. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_legal_hold_wizard
 msgid "Apply"
 msgstr "Anwenden"
@@ -220,7 +235,6 @@ msgstr "Archiviert von"
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_archive_ids
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_archive_ids
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_archive_ids
-#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
 msgid "Archived documents"
 msgstr "Archivierte Dokumente"
 
@@ -336,6 +350,11 @@ msgid "Buyer reference / Leitweg-ID (optional)"
 msgstr "Käuferreferenz / Leitweg-ID (optional)"
 
 #. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "By"
+msgstr "Von"
+
+#. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_gobd_export
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_legal_hold_wizard
 msgid "Cancel"
@@ -398,6 +417,11 @@ msgid "Cancelled"
 msgstr "Storniert"
 
 #. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__stamp__cancelled
+msgid "Cancelled (STORNIERT)"
+msgstr "Storniert (STORNIERT)"
+
+#. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__cancelled
 msgid "Cancelled (Storno)"
 msgstr "Storniert (Storno)"
@@ -410,6 +434,13 @@ msgstr "Storniert (Storno)"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Cancelled by"
 msgstr "Storniert durch"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Cancelled by %s"
+msgstr "Storniert durch %s"
 
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__action__retention
@@ -508,6 +539,11 @@ msgstr "Land"
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_cancel_wizard__create_replacement
 msgid "Create a new invoice to correct and send again"
 msgstr "Neue Rechnung zum Korrigieren und erneuten Versenden anlegen"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Created"
+msgstr "Erstellt"
 
 #. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__create_uid
@@ -648,6 +684,24 @@ msgid "Document title"
 msgstr "Dokumenttitel"
 
 #. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__version_created
+msgid "Document version created"
+msgstr "Dokumentversion erstellt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__version_superseded
+msgid "Document version superseded"
+msgstr "Dokumentversion ersetzt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_version_count
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_version_count
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_version_count
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Document versions"
+msgstr "Dokumentversionen"
+
+#. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__archived
 msgid "Documents archived"
 msgstr "Dokumente archiviert"
@@ -699,6 +753,11 @@ msgstr "E-Mail"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Email (optional)"
 msgstr "E-Mail (optional)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__xml_sha256
+msgid "Embedded XML SHA-256"
+msgstr "SHA-256 der eingebetteten XML"
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
@@ -847,6 +906,13 @@ msgid "Fsc Paid Pdf File"
 msgstr "PDF-Kopie (bezahlt)"
 
 #. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_version_pdf_file
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_version_pdf_file
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_version_pdf_file
+msgid "Fsc Version Pdf File"
+msgstr "Versions-PDF"
+
+#. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_view_pdf_kind
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_view_pdf_kind
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_view_pdf_kind
@@ -884,8 +950,8 @@ msgstr "GoBD-Protokoll"
 
 #. module: finance_service_connector
 #: model:ir.actions.act_window,name:finance_service_connector.action_fsc_invoice_archive
-msgid "GoBD document archive"
-msgstr "GoBD-Dokumentenarchiv"
+msgid "GoBD document archive (all versions)"
+msgstr "GoBD-Dokumentarchiv (alle Versionen)"
 
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__exported
@@ -990,6 +1056,13 @@ msgstr ""
 
 #. module: finance_service_connector
 #. odoo-python
+#: code:addons/finance_service_connector/models/fsc_invoice_archive.py:0
+#, python-format
+msgid "GoBD: the issued original is never superseded."
+msgstr "GoBD: Das ausgestellte Original wird nie ersetzt."
+
+#. module: finance_service_connector
+#. odoo-python
 #: code:addons/finance_service_connector/models/ir_attachment.py:0
 #, python-format
 msgid "GoBD: this file is an archived invoice document and cannot be changed."
@@ -1008,6 +1081,7 @@ msgstr ""
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_audit_event_search
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
 msgid "Group By"
 msgstr "Gruppieren nach"
 
@@ -1080,6 +1154,7 @@ msgstr "Einleitungstext (optional)"
 #: code:addons/finance_service_connector/models/account_move.py:0
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__move_id
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__move_id
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
 #, python-format
 msgid "Invoice"
 msgstr "Rechnung"
@@ -1174,6 +1249,16 @@ msgstr "Ausgestellt am"
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_issued_by_id
 msgid "Issued by"
 msgstr "Ausgestellt von"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__stamp__issued
+msgid "Issued original"
+msgstr "Ausgestelltes Original"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "Issued originals"
+msgstr "Ausgestellte Originale"
 
 #. module: finance_service_connector
 #: model:ir.model,name:finance_service_connector.model_account_journal
@@ -1432,11 +1517,19 @@ msgid "POS legal"
 msgstr "Kasse (Rechnung)"
 
 #. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__paid
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_account_invoice_filter_inherit_fsc
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+#, python-format
 msgid "Paid"
 msgstr "Bezahlt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__stamp__paid
+msgid "Paid (BEZAHLT)"
+msgstr "Bezahlt (BEZAHLT)"
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
@@ -1554,9 +1647,24 @@ msgstr "Menge"
 #. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__reason
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_cancel_wizard__reason
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__trigger
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_legal_hold_wizard__reason
 msgid "Reason"
 msgstr "Begründung"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_partial_reconcile.py:0
+#, python-format
+msgid "Reconciled with %s"
+msgstr "Ausgeglichen mit %s"
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_partial_reconcile.py:0
+#, python-format
+msgid "Reconciliation removed: %s"
+msgstr "Ausgleich aufgehoben: %s"
 
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__action__release
@@ -1681,6 +1789,12 @@ msgid "SHA-256"
 msgstr "SHA-256"
 
 #. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_fsc_invoice_archive__xml_sha256
+msgid ""
+"SHA-256 of the e-invoice XML inside the PDF: the same in every version."
+msgstr "SHA-256 der E-Rechnungs-XML im PDF: in jeder Version gleich."
+
+#. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_service_type__none
 msgid "Same as invoice date"
 msgstr "Entspricht dem Rechnungsdatum"
@@ -1721,6 +1835,11 @@ msgid "Standard"
 msgstr "Standard"
 
 #. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__state
+msgid "State"
+msgstr "Zustand"
+
+#. module: finance_service_connector
 #: model:ir.model.fields,help:finance_service_connector.field_account_tax__fsc_legal_note
 msgid ""
 "Statement printed on the invoice for this VAT treatment, e.g. the exemption "
@@ -1735,6 +1854,13 @@ msgstr ""
 "Leistungsempfängers“ gedruckt."
 
 #. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "Status changed"
+msgstr "Status geändert"
+
+#. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fs_rcpt_street
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fs_rcpt_street
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_street
@@ -1746,6 +1872,17 @@ msgstr "Straße und Hausnummer"
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fs_invoice_type__subscription
 msgid "Subscription"
 msgstr "Abonnement"
+
+#. module: finance_service_connector
+#: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_invoice_archive__state__superseded
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "Superseded"
+msgstr "Ersetzt"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__superseded_at
+msgid "Superseded At"
+msgstr "Ersetzt am"
 
 #. module: finance_service_connector
 #: model:ir.model,name:finance_service_connector.model_account_tax
@@ -1987,6 +2124,17 @@ msgstr "USt-IdNr.:"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
 msgid "Verify integrity"
 msgstr "Integrität prüfen"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__version
+msgid "Version"
+msgstr "Version"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__stamp
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_invoice_archive_search
+msgid "Version type"
+msgstr "Versionsart"
 
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_fsc_legal_hold_wizard

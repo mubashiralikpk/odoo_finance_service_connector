@@ -73,9 +73,15 @@
         <field name="name">fsc.invoice.archive.tree</field>
         <field name="model">fsc.invoice.archive</field>
         <field name="arch" type="xml">
-            <tree create="0" edit="0" delete="0" decoration-danger="not last_check_ok">
+            <tree create="0" edit="0" delete="0" decoration-danger="not last_check_ok"
+                  decoration-muted="state == 'superseded'">
                 <field name="move_id"/>
+                <field name="version"/>
+                <field name="stamp" widget="badge" decoration-info="stamp == 'issued'"
+                       decoration-success="stamp == 'paid'" decoration-danger="stamp == 'cancelled'"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-muted="state == 'superseded'"/>
                 <field name="filename"/>
+                <field name="trigger" optional="show"/>
                 <field name="standard"/>
                 <field name="file_size" optional="hide"/>
                 <field name="sha256" optional="show"/>
@@ -98,11 +104,19 @@
                 <filter name="failed" string="Integrity failed" domain="[('last_check_ok', '=', False)]"/>
                 <filter name="pdf" string="PDF" domain="[('kind', '=', 'pdf')]"/>
                 <filter name="xml" string="XML" domain="[('kind', '=', 'xml')]"/>
+                <separator/>
+                <filter name="active_versions" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="superseded" string="Superseded" domain="[('state', '=', 'superseded')]"/>
+                <filter name="originals" string="Issued originals" domain="[('stamp', '=', 'issued')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_move" string="Invoice" context="{'group_by': 'move_id'}"/>
+                    <filter name="group_stamp" string="Version type" context="{'group_by': 'stamp'}"/>
+                </group>
             </search>
         </field>
     </record>
     <record id="action_fsc_invoice_archive" model="ir.actions.act_window">
-        <field name="name">GoBD document archive</field>
+        <field name="name">GoBD document archive (all versions)</field>
         <field name="res_model">fsc.invoice.archive</field>
         <field name="view_mode">tree</field>
     </record>

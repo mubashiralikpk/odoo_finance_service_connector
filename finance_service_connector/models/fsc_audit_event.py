@@ -15,6 +15,8 @@ EVENT_TYPES = [
     ('archive_failed', 'Archiving failed'),
     ('correction', 'Corrected by credit note'),
     ('cancelled', 'Cancelled (Storno)'),
+    ('version_created', 'Document version created'),
+    ('version_superseded', 'Document version superseded'),
     ('payment_linked', 'Payment linked'),
     ('legal_hold_set', 'Legal hold set'),
     ('legal_hold_released', 'Legal hold released'),

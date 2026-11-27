@@ -45,16 +45,31 @@
                         <button name="action_fsc_verify_integrity" type="object" string="Verify integrity"
                                 class="btn-secondary" icon="fa-check-circle"/>
                     </div>
-                    <separator string="Archived documents"/>
+                    <separator string="Document versions"/>
+                    <p class="text-muted small mb-1">
+                        Append-only: v1 is the issued original (PDF/A-3 + XML). Paid / cancelled copies with the stamp are
+                        new versions; outdated ones are marked superseded and kept. Nothing is changed or deleted.
+                    </p>
                     <field name="fsc_archive_ids" readonly="1" nolabel="1">
-                        <tree create="0" delete="0">
+                        <tree create="0" delete="0" default_order="version desc, id desc"
+                              decoration-muted="state == 'superseded'" decoration-bf="state == 'active' and kind == 'pdf'">
+                            <field name="version"/>
+                            <field name="stamp" widget="badge"
+                                   decoration-info="stamp == 'issued'" decoration-success="stamp == 'paid'"
+                                   decoration-danger="stamp == 'cancelled'"/>
+                            <field name="state" widget="badge" decoration-success="state == 'active'"
+                                   decoration-muted="state == 'superseded'"/>
+                            <field name="kind" column_invisible="1"/>
                             <field name="filename"/>
-                            <field name="standard"/>
-                            <field name="file_size"/>
+                            <field name="standard" optional="hide"/>
+                            <field name="trigger" optional="show"/>
+                            <field name="file_size" optional="hide"/>
                             <field name="sha256" optional="show"/>
-                            <field name="archived_at"/>
-                            <field name="last_check_at" optional="show"/>
-                            <field name="last_check_ok" widget="boolean"
+                            <field name="xml_sha256" optional="hide"/>
+                            <field name="archived_at" string="Created"/>
+                            <field name="archived_by_id" string="By" optional="show"/>
+                            <field name="superseded_at" optional="hide"/>
+                            <field name="last_check_ok" widget="boolean" optional="show"
                                    decoration-danger="not last_check_ok"/>
                             <button name="action_download" type="object" icon="fa-download" title="Download"/>
                         </tree>
