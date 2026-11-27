@@ -17,6 +17,10 @@ class FscCancelWizard(models.TransientModel):
     currency_id = fields.Many2one(related='move_id.currency_id')
     reason = fields.Text(required=True)
     date = fields.Date(string='Cancellation date', required=True, default=fields.Date.context_today)
+    create_replacement = fields.Boolean(
+        string='Create a new invoice to correct and send again', default=True,
+        help='After the cancellation, a new draft invoice with the same member, address and articles '
+             'is created. Change what is wrong, then issue and send it.')
 
     def action_cancel(self):
         self.ensure_one()
@@ -39,6 +43,21 @@ class FscCancelWizard(models.TransientModel):
             'partner_bank_id': move.partner_bank_id.id,
         }], cancel=True)
         move._fsc_log('cancelled', reason=reason, new={'cancellation': cancellation.name})
+        if self.create_replacement:
+            replacement = move.copy({
+                'fsc_replaces_id': move.id,
+                'invoice_date': False,
+                'invoice_date_due': False,
+                'fs_document_title': False,
+            })
+            replacement.message_post(body=_('Replacement for %(name)s (cancelled by %(storno)s).',
+                                            name=move.name, storno=cancellation.name))
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'account.move',
+                'res_id': replacement.id,
+                'view_mode': 'form',
+            }
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'account.move',

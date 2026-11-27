@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'German E-Invoice (GoBD, ZUGFeRD, XRechnung)',
-    'version': '17.0.2.1.0',
+    'version': '17.0.2.2.0',
     'summary': 'GoBD-compliant German invoicing: EN 16931 e-invoices (ZUGFeRD / Factur-X, XRechnung), '
                'PDF/A-3, VAT checks, archive with SHA-256, retention and legal hold',
     'author': 'Ähdus Technology',

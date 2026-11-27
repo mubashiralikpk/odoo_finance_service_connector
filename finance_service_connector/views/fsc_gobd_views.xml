@@ -148,6 +148,7 @@
                     <field name="currency_id" invisible="1"/>
                     <field name="date"/>
                     <field name="reason" placeholder="Why? e.g. wrong member, duplicate invoice, event cancelled ..."/>
+                    <field name="create_replacement"/>
                 </group>
                 <footer>
                     <button name="action_cancel" type="object" string="Issue cancellation invoice" class="btn-danger"/>

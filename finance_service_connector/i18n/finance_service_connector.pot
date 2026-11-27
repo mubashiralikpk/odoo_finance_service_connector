@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-26 12:28+0000\n"
-"PO-Revision-Date: 2026-11-26 12:28+0000\n"
+"POT-Creation-Date: 2026-11-27 06:13+0000\n"
+"PO-Revision-Date: 2026-11-27 06:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,11 @@ msgstr ""
 #: code:addons/finance_service_connector/wizard/fsc_cancel_wizard.py:0
 #, python-format
 msgid "%s is already cancelled."
+msgstr ""
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "(cancelled)"
 msgstr ""
 
 #. module: finance_service_connector
@@ -133,6 +138,13 @@ msgstr ""
 #. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_audit_event__new_value
 msgid "After"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_fsc_cancel_wizard__create_replacement
+msgid ""
+"After the cancellation, a new draft invoice with the same member, address "
+"and articles is created. Change what is wrong, then issue and send it."
 msgstr ""
 
 #. module: finance_service_connector
@@ -327,6 +339,11 @@ msgid ""
 msgstr ""
 
 #. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Cancellation"
+msgstr ""
+
+#. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_cancel_wizard__date
 msgid "Cancellation date"
 msgstr ""
@@ -354,6 +371,7 @@ msgstr ""
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__cancelled
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_account_invoice_filter_inherit_fsc
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Cancelled"
 msgstr ""
 
@@ -445,6 +463,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fs_rcpt_country_id
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Country"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_fsc_cancel_wizard__create_replacement
+msgid "Create a new invoice to correct and send again"
 msgstr ""
 
 #. module: finance_service_connector
@@ -1022,7 +1045,7 @@ msgstr ""
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid ""
-"Issued and locked (GoBD). Corrections only with a credit note.\n"
+"Issued and locked (GoBD). To change it: \"Cancel invoice\" (Stornorechnung + new invoice) or \"Credit Note\".\n"
 "                    Archive:"
 msgstr ""
 
@@ -1277,6 +1300,7 @@ msgstr ""
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__overdue
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_account_invoice_filter_inherit_fsc
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Overdue"
 msgstr ""
 
@@ -1294,12 +1318,14 @@ msgstr ""
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__paid
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_account_invoice_filter_inherit_fsc
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Paid"
 msgstr ""
 
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__partial
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_account_invoice_filter_inherit_fsc
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Partially paid"
 msgstr ""
 
@@ -1405,6 +1431,40 @@ msgstr ""
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_legal_hold_wizard__action__release
 msgid "Release legal hold"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_replacement_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_replacement_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_replacement_id
+msgid "Replaced by"
+msgstr ""
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/wizard/fsc_cancel_wizard.py:0
+#, python-format
+msgid "Replacement for %(name)s (cancelled by %(storno)s)."
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_replaced_by_ids
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_replaced_by_ids
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_replaced_by_ids
+msgid "Replacements"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_replaces_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_replaces_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_replaces_id
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "Replaces"
+msgstr ""
+
+#. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_ir_actions_report
+msgid "Report Action"
 msgstr ""
 
 #. module: finance_service_connector
@@ -1616,6 +1676,13 @@ msgid "The cancellation invoice (Stornorechnung) that cancelled this invoice."
 msgstr ""
 
 #. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_account_bank_statement_line__fsc_replaces_id
+#: model:ir.model.fields,help:finance_service_connector.field_account_move__fsc_replaces_id
+#: model:ir.model.fields,help:finance_service_connector.field_account_payment__fsc_replaces_id
+msgid "The cancelled invoice this invoice replaces."
+msgstr ""
+
+#. module: finance_service_connector
 #. odoo-python
 #: code:addons/finance_service_connector/models/res_company.py:0
 #, python-format
@@ -1688,6 +1755,22 @@ msgstr ""
 #: code:addons/finance_service_connector/wizard/fsc_legal_hold_wizard.py:0
 #, python-format
 msgid "This invoice has no legal hold."
+msgstr ""
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid ""
+"This invoice replaces invoice %(name)s dated %(date)s, cancelled by "
+"%(storno)s."
+msgstr ""
+
+#. module: finance_service_connector
+#. odoo-python
+#: code:addons/finance_service_connector/models/account_move.py:0
+#, python-format
+msgid "This invoice replaces invoice %(name)s dated %(date)s."
 msgstr ""
 
 #. module: finance_service_connector
@@ -1876,4 +1959,9 @@ msgstr ""
 #. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
 msgid "· Customer VAT ID:"
+msgstr ""
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
+msgid "· Replaced by"
 msgstr ""

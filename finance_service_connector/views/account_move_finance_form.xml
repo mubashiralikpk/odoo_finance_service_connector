@@ -21,12 +21,38 @@
                 </div>
                 <div class="alert alert-info mb-0" role="status"
                      invisible="not fsc_issued_at or not fsc_is_gobd_document">
-                    Issued and locked (GoBD). Corrections only with a credit note.
+                    Issued and locked (GoBD). To change it: "Cancel invoice" (Stornorechnung + new invoice) or "Credit Note".
                     Archive: <field name="fsc_archive_state" nolabel="1" class="d-inline fw-bold"/> ·
                     retain until <field name="fsc_retention_until" nolabel="1" class="d-inline fw-bold"/>
                     <span invisible="not fsc_legal_hold" class="badge text-bg-danger ms-2">Legal hold</span>
                 </div>
             </xpath>
+            <!-- Ribbons: one status ribbon from the invoice status instead of Odoo's Paid / Reversed -->
+            <xpath expr="//widget[@name='web_ribbon'][contains(@invisible, &quot;payment_state != 'paid'&quot;)]" position="attributes">
+                <attribute name="invisible">payment_state != 'paid' or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') or fsc_is_gobd_document</attribute>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon'][contains(@invisible, &quot;payment_state != 'in_payment'&quot;)]" position="attributes">
+                <attribute name="invisible">payment_state != 'in_payment' or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') or fsc_is_gobd_document</attribute>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon'][contains(@invisible, &quot;payment_state != 'partial'&quot;)]" position="attributes">
+                <attribute name="invisible">payment_state != 'partial' or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') or fsc_is_gobd_document</attribute>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon'][contains(@invisible, &quot;payment_state != 'reversed'&quot;)]" position="attributes">
+                <attribute name="invisible">payment_state != 'reversed' or fsc_is_gobd_document</attribute>
+            </xpath>
+            <xpath expr="//widget[@name='web_ribbon'][contains(@invisible, &quot;payment_state != 'reversed'&quot;)]" position="after">
+                <widget name="web_ribbon" title="Paid" bg_color="text-bg-success"
+                        invisible="not fsc_is_gobd_document or fsc_status != 'paid'"/>
+                <widget name="web_ribbon" title="Partially paid" bg_color="text-bg-warning"
+                        invisible="not fsc_is_gobd_document or fsc_status != 'partial'"/>
+                <widget name="web_ribbon" title="Overdue" bg_color="text-bg-danger"
+                        invisible="not fsc_is_gobd_document or fsc_status != 'overdue'"/>
+                <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger"
+                        invisible="not fsc_is_gobd_document or fsc_status != 'cancelled'"/>
+                <widget name="web_ribbon" title="Cancellation" bg_color="text-bg-secondary"
+                        invisible="not fsc_is_gobd_document or fsc_status != 'storno'"/>
+            </xpath>
+
             <!-- status of the invoice (draft, open, sent, partially paid, overdue, paid, cancelled) -->
             <xpath expr="//div[hasclass('oe_title')]" position="before">
                 <div class="mb-2" invisible="move_type not in ('out_invoice', 'out_refund')">
@@ -39,6 +65,12 @@
                            decoration-success="fsc_status == 'paid'"/>
                     <span invisible="not fsc_cancellation_id" class="ms-2 text-muted">
                         Cancelled by <field name="fsc_cancellation_id" class="d-inline" readonly="1"/>
+                    </span>
+                    <span invisible="not fsc_replacement_id" class="ms-2 text-muted">
+                        · Replaced by <field name="fsc_replacement_id" class="d-inline" readonly="1"/>
+                    </span>
+                    <span invisible="not fsc_replaces_id" class="ms-2 text-muted">
+                        Replaces <field name="fsc_replaces_id" class="d-inline" readonly="1"/> (cancelled)
                     </span>
                 </div>
             </xpath>

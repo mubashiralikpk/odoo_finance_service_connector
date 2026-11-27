@@ -182,6 +182,11 @@ class AccountMove(models.Model):
     fsc_cancellation_id = fields.Many2one(
         'account.move', string='Cancelled by', compute='_compute_fsc_status',
         help='The cancellation invoice (Stornorechnung) that cancelled this invoice.')
+    fsc_replaces_id = fields.Many2one(
+        'account.move', string='Replaces', readonly=True, copy=False, index=True,
+        help='The cancelled invoice this invoice replaces.')
+    fsc_replaced_by_ids = fields.One2many('account.move', 'fsc_replaces_id', string='Replacements')
+    fsc_replacement_id = fields.Many2one('account.move', string='Replaced by', compute='_compute_fsc_replacement_id')
     fsc_customer_type = fields.Selection([
         ('b2b', 'Business (B2B)'),
         ('b2c', 'Private (B2C)'),
@@ -298,13 +303,18 @@ class AccountMove(models.Model):
         domain = expression.OR([domains[v] for v in values if v in domains]) or [('id', '=', 0)]
         return ['!'] + expression.normalize_domain(domain) if operator in ('!=', 'not in') else domain
 
+    @api.depends('fsc_replaced_by_ids')
+    def _compute_fsc_replacement_id(self):
+        for move in self:
+            move.fsc_replacement_id = move.fsc_replaced_by_ids.sorted('id', reverse=True)[:1]
+
     @api.depends('partner_id.commercial_partner_id.is_company')
     def _compute_fsc_customer_type(self):
         for move in self:
             partner = move.partner_id.commercial_partner_id
             move.fsc_customer_type = (partner.is_company and 'b2b' or 'b2c') if partner else False
 
-    @api.depends('invoice_line_ids.tax_ids', 'reversed_entry_id', 'partner_id.vat')
+    @api.depends('invoice_line_ids.tax_ids', 'reversed_entry_id', 'partner_id.vat', 'fsc_replaces_id')
     def _compute_fsc_legal_statements(self):
         for move in self:
             move.fsc_legal_statements = '\n'.join(move._fsc_legal_statement_lines()) or False
@@ -526,6 +536,15 @@ class AccountMove(models.Model):
                     lines.append(_('VAT ID of the recipient: %s', self.partner_id.commercial_partner_id.vat))
                 if cat == 'G' and self.fsc_export_evidence_ref:
                     lines.append(_('Export evidence: %s', self.fsc_export_evidence_ref))
+        if self.move_type == 'out_invoice' and self.fsc_replaces_id:
+            old = self.fsc_replaces_id
+            if old.fsc_cancellation_id:
+                lines.append(_('This invoice replaces invoice %(name)s dated %(date)s, cancelled by %(storno)s.',
+                               name=old.name, date=tools.format_date(self.env, old.invoice_date),
+                               storno=old.fsc_cancellation_id.name))
+            else:
+                lines.append(_('This invoice replaces invoice %(name)s dated %(date)s.',
+                               name=old.name, date=tools.format_date(self.env, old.invoice_date)))
         if self.move_type == 'out_refund' and self.reversed_entry_id and (self.fs_document_title or '') in CANCEL_TITLES:
             original = self.reversed_entry_id
             lines.append(_('This document cancels invoice %(name)s dated %(date)s in full.',
@@ -827,6 +846,30 @@ class AccountMove(models.Model):
             vals.setdefault('delivery_date', move.delivery_date)
             vals.setdefault('fs_service_date_to', move.fs_service_date_to)
         return super()._reverse_moves(default_values_list=default_values_list, cancel=cancel)
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # Status stamp on PDF copies (preview / print / download)
+    # ─────────────────────────────────────────────────────────────────────────
+    def _fsc_stamp_kind(self):
+        self.ensure_one()
+        return {'paid': 'paid', 'cancelled': 'cancelled', 'draft': 'draft'}.get(self.fsc_status)
+
+    def _fsc_original_pdf(self):
+        """The issued original PDF from the GoBD archive (bytes) or False."""
+        self.ensure_one()
+        if self.state != 'posted':
+            return False
+        archive = self.sudo().fsc_archive_ids.filtered(lambda a: a.kind == 'pdf')[:1]
+        return archive.attachment_id.raw if archive else False
+
+    def _fsc_stamped_pdf(self, pdf_bytes):
+        self.ensure_one()
+        kind = self._fsc_stamp_kind()
+        if not kind or not pdf_bytes:
+            return pdf_bytes
+        from ..tools.pdf_stamp import stamp_pdf
+        lang = self.partner_id.lang or self.env.lang or 'en_US'
+        return stamp_pdf(pdf_bytes, kind, lang)
 
     def action_fsc_cancel(self):
         """Cancel an invoice. A draft is simply cancelled; an issued invoice can only be
