@@ -53,6 +53,17 @@ class AccountMoveSend(models.TransientModel):
         writer.write(buffer)
         pdf_values['raw'] = buffer.getvalue()
 
+    @api.model
+    def _get_invoice_extra_attachments(self, move):
+        """Send & Print of a paid / cancelled invoice: the PDF with the BEZAHLT / STORNIERT stamp
+        (a copy - the issued original stays in the GoBD archive), plus the e-invoice XML."""
+        attachments = super()._get_invoice_extra_attachments(move)
+        if move.fsc_is_gobd_document and move.invoice_pdf_report_id in attachments:
+            move._fsc_sync_view_pdf()
+            if move.fsc_view_pdf_id:
+                attachments = (attachments - move.invoice_pdf_report_id) | move.fsc_view_pdf_id
+        return attachments
+
     def _download(self, attachment_ids, moves_data=None):
         """Send & Print -> Download: one GoBD invoice PDF is downloaded with its status stamp
         (PAID / CANCELLED). The stored original and the e-mail attachment stay unchanged."""

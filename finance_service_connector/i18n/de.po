@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-27 11:24+0000\n"
-"PO-Revision-Date: 2026-11-27 11:24+0000\n"
+"POT-Creation-Date: 2026-11-27 11:47+0000\n"
+"PO-Revision-Date: 2026-11-27 11:47+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -465,6 +465,18 @@ msgid "Config Settings"
 msgstr "Konfigurationseinstellungen"
 
 #. module: finance_service_connector
+#: model:ir.model.fields,help:finance_service_connector.field_account_bank_statement_line__fsc_view_pdf_id
+#: model:ir.model.fields,help:finance_service_connector.field_account_move__fsc_view_pdf_id
+#: model:ir.model.fields,help:finance_service_connector.field_account_payment__fsc_view_pdf_id
+msgid ""
+"Copy of the issued PDF with the PAID / CANCELLED stamp, used for the preview"
+" and for sending. The issued original stays unchanged in the GoBD archive."
+msgstr ""
+"Kopie des ausgestellten PDFs mit dem Stempel BEZAHLT / STORNIERT, für die "
+"Vorschau und den Versand. Das ausgestellte Original bleibt unverändert im "
+"GoBD-Archiv."
+
+#. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__fsc_audit_event__event_type__correction
 msgid "Corrected by credit note"
 msgstr "Durch Rechnungskorrektur berichtigt"
@@ -807,6 +819,13 @@ msgstr ""
 "„Einzelperson“ = Privatkunde (B2C). Änderung am Kontakt."
 
 #. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_cancelled_pdf_file
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_cancelled_pdf_file
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_cancelled_pdf_file
+msgid "Fsc Cancelled Pdf File"
+msgstr "PDF-Kopie (storniert)"
+
+#. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_is_gobd_document
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_is_gobd_document
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_is_gobd_document
@@ -819,6 +838,20 @@ msgstr "GoBD-Dokument"
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_legal_statements
 msgid "Fsc Legal Statements"
 msgstr "Rechtliche Hinweise"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_paid_pdf_file
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_paid_pdf_file
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_paid_pdf_file
+msgid "Fsc Paid Pdf File"
+msgstr "PDF-Kopie (bezahlt)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_view_pdf_kind
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_view_pdf_kind
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_view_pdf_kind
+msgid "Fsc View Pdf Kind"
+msgstr "Stempelart"
 
 #. module: finance_service_connector
 #: model:ir.ui.menu,name:finance_service_connector.menu_fsc_gobd_root
@@ -1411,6 +1444,11 @@ msgid "Paid on"
 msgstr "Bezahlt am"
 
 #. module: finance_service_connector
+#: model:ir.model,name:finance_service_connector.model_account_partial_reconcile
+msgid "Partial Reconcile"
+msgstr "Teilausgleich"
+
+#. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__partial
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_account_invoice_filter_inherit_fsc
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
@@ -1669,6 +1707,13 @@ msgstr "Aufbewahrungssperre setzen"
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__file_size
 msgid "Size (bytes)"
 msgstr "Größe (Bytes)"
+
+#. module: finance_service_connector
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_view_pdf_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_view_pdf_id
+#: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_view_pdf_id
+msgid "Stamped PDF copy"
+msgstr "Gestempelte PDF-Kopie"
 
 #. module: finance_service_connector
 #: model:ir.model.fields,field_description:finance_service_connector.field_fsc_invoice_archive__standard

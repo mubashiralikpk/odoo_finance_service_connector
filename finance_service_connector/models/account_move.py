@@ -16,6 +16,7 @@ Rules (mirrors Pitstop-CRM-tenant):
   5. EN 16931  - see account_edi_xml_cii.py (Factur-X / ZUGFeRD EN16931 profile).
   6. PDF       - see account_move_send.py and report/report_invoice.xml.
 """
+import base64
 import io
 import json
 import logging
@@ -187,6 +188,14 @@ class AccountMove(models.Model):
         help='The cancelled invoice this invoice replaces.')
     fsc_replaced_by_ids = fields.One2many('account.move', 'fsc_replaces_id', string='Replacements')
     fsc_replacement_id = fields.Many2one('account.move', string='Replaced by', compute='_compute_fsc_replacement_id')
+    fsc_view_pdf_id = fields.Many2one(
+        'ir.attachment', string='Stamped PDF copy', readonly=True, copy=False,
+        help='Copy of the issued PDF with the PAID / CANCELLED stamp, used for the preview and for sending. '
+             'The issued original stays unchanged in the GoBD archive.')
+    fsc_view_pdf_kind = fields.Char(readonly=True, copy=False)
+    # one stamped copy per stamp, created once (the German audit trail forbids deleting invoice PDFs)
+    fsc_paid_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)
+    fsc_cancelled_pdf_file = fields.Binary(attachment=True, copy=False, readonly=True)
     fsc_customer_type = fields.Selection([
         ('b2b', 'Business (B2B)'),
         ('b2c', 'Private (B2C)'),
@@ -845,7 +854,10 @@ class AccountMove(models.Model):
             vals.setdefault('fs_buyer_reference', move.fs_buyer_reference)
             vals.setdefault('delivery_date', move.delivery_date)
             vals.setdefault('fs_service_date_to', move.fs_service_date_to)
-        return super()._reverse_moves(default_values_list=default_values_list, cancel=cancel)
+        reversals = super()._reverse_moves(default_values_list=default_values_list, cancel=cancel)
+        if cancel:
+            self._fsc_sync_view_pdf()
+        return reversals
 
     # ─────────────────────────────────────────────────────────────────────────
     # Status stamp on PDF copies (preview / print / download)
@@ -870,6 +882,39 @@ class AccountMove(models.Model):
         from ..tools.pdf_stamp import stamp_pdf
         lang = self.partner_id.lang or self.env.lang or 'en_US'
         return stamp_pdf(pdf_bytes, kind, lang)
+
+    def _fsc_sync_view_pdf(self):
+        """Keep the shown / sent PDF in line with the status: a paid or cancelled invoice uses a copy
+        with the BEZAHLT / STORNIERT stamp, otherwise the issued original. The original stays
+        unchanged in the GoBD archive; each stamped copy is created once and reused."""
+        labels = {('paid', 'de'): 'Bezahlt', ('paid', 'en'): 'Paid',
+                  ('cancelled', 'de'): 'Storniert', ('cancelled', 'en'): 'Cancelled'}
+        Attachment = self.env['ir.attachment'].sudo()
+        for move in self.filtered(lambda m: m.fsc_is_gobd_document and m.state == 'posted'
+                                  and m.move_type in ('out_invoice', 'out_refund')):
+            move = move.sudo().with_context(fsc_system_write=True)
+            kind = move._fsc_stamp_kind()
+            kind = kind if kind in ('paid', 'cancelled') else False
+            original = move.invoice_pdf_report_id or move.fsc_archive_ids.filtered(lambda a: a.kind == 'pdf')[:1].attachment_id
+            copy = Attachment
+            if kind and original:
+                field = f'fsc_{kind}_pdf_file'
+                domain = [('res_model', '=', 'account.move'), ('res_id', '=', move.id), ('res_field', '=', field)]
+                copy = Attachment.search(domain, limit=1)
+                if not copy:
+                    move.write({field: base64.b64encode(move._fsc_stamped_pdf(original.raw))})
+                    copy = Attachment.search(domain, limit=1)
+                    lang = 'de' if (move.partner_id.lang or '').startswith('de') else 'en'
+                    base = (original.name or move._get_invoice_report_filename()).rsplit('.pdf', 1)[0]
+                    copy.write({'name': f'{base} ({labels[(kind, lang)]}).pdf', 'mimetype': 'application/pdf'})
+            target = copy or original
+            if move.fsc_view_pdf_id != copy or (move.fsc_view_pdf_kind or False) != (kind or False) \
+                    or (target and move.message_main_attachment_id != target):
+                move.write({
+                    'fsc_view_pdf_id': copy.id or False,
+                    'fsc_view_pdf_kind': kind or False,
+                    'message_main_attachment_id': target.id or False,
+                })
 
     def action_fsc_download_pdf(self):
         """Download the invoice PDF with its status stamp (PAID / CANCELLED / DRAFT)."""
