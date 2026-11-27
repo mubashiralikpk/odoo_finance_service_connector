@@ -871,6 +871,15 @@ class AccountMove(models.Model):
         lang = self.partner_id.lang or self.env.lang or 'en_US'
         return stamp_pdf(pdf_bytes, kind, lang)
 
+    def action_fsc_download_pdf(self):
+        """Download the invoice PDF with its status stamp (PAID / CANCELLED / DRAFT)."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/finance_service_connector/invoice/{self.id}/pdf?download=1',
+            'target': 'download',
+        }
+
     def action_fsc_cancel(self):
         """Cancel an invoice. A draft is simply cancelled; an issued invoice can only be
         cancelled with a cancellation invoice (Stornorechnung) - GoBD: never deleted or changed."""

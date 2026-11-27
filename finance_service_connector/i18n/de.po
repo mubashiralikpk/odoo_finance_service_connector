@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-27 06:13+0000\n"
-"PO-Revision-Date: 2026-11-27 06:13+0000\n"
+"POT-Creation-Date: 2026-11-27 11:24+0000\n"
+"PO-Revision-Date: 2026-11-27 11:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -406,6 +406,7 @@ msgstr "Storniert (Storno)"
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_bank_statement_line__fsc_cancellation_id
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_move__fsc_cancellation_id
 #: model:ir.model.fields,field_description:finance_service_connector.field_account_payment__fsc_cancellation_id
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Cancelled by"
 msgstr "Storniert durch"
@@ -520,6 +521,11 @@ msgstr "Erstellt am"
 #: code:addons/finance_service_connector/models/account_move.py:0
 #, python-format
 msgid "Credit Note"
+msgstr "Rechnungskorrektur"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "Credit note"
 msgstr "Rechnungskorrektur"
 
 #. module: finance_service_connector
@@ -639,6 +645,11 @@ msgstr "Dokumente archiviert"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
 msgid "Download"
 msgstr "Herunterladen"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid "Download PDF"
+msgstr "PDF herunterladen"
 
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__draft
@@ -1047,6 +1058,15 @@ msgid "Invoice (§14b UStG / §147 AO) - 8 years"
 msgstr "Rechnung (§14b UStG / §147 AO) – 8 Jahre"
 
 #. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_inherit_fsc_gobd
+msgid ""
+"Invoice PDF with the e-invoice inside and the status stamp (paid / cancelled"
+" / draft)"
+msgstr ""
+"Rechnungs-PDF mit enthaltener E-Rechnung und Statusstempel (bezahlt / "
+"storniert / Entwurf)"
+
+#. module: finance_service_connector
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.res_config_settings_view_form_finance_service
 msgid "Invoice retention"
 msgstr "Aufbewahrung von Rechnungen"
@@ -1384,6 +1404,11 @@ msgstr "Kasse (Rechnung)"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_move_form_finance_form
 msgid "Paid"
 msgstr "Bezahlt"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "Paid on"
+msgstr "Bezahlt am"
 
 #. module: finance_service_connector
 #: model:ir.model.fields.selection,name:finance_service_connector.selection__account_move__fsc_status__partial
@@ -2049,6 +2074,11 @@ msgstr "z. B. 143/123/45678"
 #: model_terms:ir.ui.view,arch_db:finance_service_connector.view_tax_form_inherit_fsc
 msgid "e.g. Steuerfreie innergemeinschaftliche Lieferung (§ 4 Nr. 1b UStG)"
 msgstr "z. B. Steuerfreie innergemeinschaftliche Lieferung (§ 4 Nr. 1b UStG)"
+
+#. module: finance_service_connector
+#: model_terms:ir.ui.view,arch_db:finance_service_connector.report_invoice_document_fsc
+msgid "on"
+msgstr "am"
 
 #. module: finance_service_connector
 #. odoo-python

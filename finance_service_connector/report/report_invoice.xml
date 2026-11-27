@@ -30,6 +30,26 @@
             <address t-else="" class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
         </xpath>
 
+        <!-- PAID / CANCELLED stamp in the HTML preview (the PDF gets it as an overlay on a copy) -->
+        <xpath expr="//div[hasclass('page')]" position="before">
+            <t t-set="fsc_stamp" t-value="report_type == 'html' and o.fsc_is_gobd_document and o._fsc_stamp_kind()"/>
+            <div t-if="fsc_stamp in ('paid', 'cancelled')" style="position: relative; height: 0; z-index: 10;">
+                <img t-att-src="'/finance_service_connector/static/stamps/%s_stamp_%s.png' % (fsc_stamp, 'de' if (o.partner_id.lang or '').startswith('de') else 'en')"
+                     t-att-alt="fsc_stamp"
+                     t-attf-style="position: absolute; left: 50%; top: 110px; width: 230px; opacity: 0.55; pointer-events: none; transform: translateX(-50%) rotate(#{'-22deg' if fsc_stamp == 'paid' else '0deg'});"/>
+            </div>
+        </xpath>
+
+        <!-- the Storno / credit note is reconciled like a payment: do not call it "Paid on" -->
+        <xpath expr="//i[hasclass('oe_payment_label')]" position="replace">
+            <t t-set="fsc_counterpart" t-value="o.env['account.move'].sudo().browse(payment_vals.get('move_id') or [])"/>
+            <i class="oe_form_field text-end oe_payment_label">
+                <t t-if="fsc_counterpart and fsc_counterpart in o.reversal_move_id and fsc_counterpart == o.fsc_cancellation_id">Cancelled by <t t-out="fsc_counterpart.name"/> on <t t-out="payment_vals['date']" t-options='{"widget": "date"}'/></t>
+                <t t-elif="fsc_counterpart and fsc_counterpart in o.reversal_move_id">Credit note <t t-out="fsc_counterpart.name"/> on <t t-out="payment_vals['date']" t-options='{"widget": "date"}'/></t>
+                <t t-else="">Paid on <t t-out="payment_vals['date']" t-options='{"widget": "date"}'/></t>
+            </i>
+        </xpath>
+
         <!-- document title -->
         <xpath expr="//div[hasclass('page')]/h2/span[@t-if=&quot;o.move_type == 'out_invoice' and o.state == 'posted'&quot;]" position="replace">
             <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'" t-out="o._fsc_document_title()"/>

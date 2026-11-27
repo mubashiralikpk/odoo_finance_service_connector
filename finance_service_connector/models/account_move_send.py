@@ -52,3 +52,18 @@ class AccountMoveSend(models.TransientModel):
         buffer = io.BytesIO()
         writer.write(buffer)
         pdf_values['raw'] = buffer.getvalue()
+
+    def _download(self, attachment_ids, moves_data=None):
+        """Send & Print -> Download: one GoBD invoice PDF is downloaded with its status stamp
+        (PAID / CANCELLED). The stored original and the e-mail attachment stay unchanged."""
+        if len(attachment_ids) == 1 and moves_data and len(moves_data) == 1:
+            move = next(iter(moves_data))
+            attachment = self.env['ir.attachment'].browse(attachment_ids[0])
+            if (move.fsc_is_gobd_document and attachment.mimetype == 'application/pdf'
+                    and move._fsc_stamp_kind() in ('paid', 'cancelled')):
+                return {
+                    'type': 'ir.actions.act_url',
+                    'url': f'/finance_service_connector/invoice/{move.id}/pdf?download=1',
+                    'close': True,
+                }
+        return super()._download(attachment_ids, moves_data=moves_data)
